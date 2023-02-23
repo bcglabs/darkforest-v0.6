@@ -43,7 +43,7 @@ function BoardPlacement({ account }: { account: EthAddress | undefined }) {
     content = (
       <Sub>
         <TooltipTrigger name={TooltipName.Score}>
-          score: <Text>{formattedScore}</Text>
+          分数: <Text>{formattedScore}</Text>
         </TooltipTrigger>
       </Sub>
     );
@@ -81,7 +81,7 @@ function SpaceJunk({ account }: { account: EthAddress | undefined }) {
     <Numbers>
       <Sub>
         <TooltipTrigger name={TooltipName.SpaceJunk}>
-          space junk:{' '}
+          宇宙垃圾：{' '}
           <Text>
             {spaceJunk} / {spaceJunkLimit}
           </Text>
@@ -102,34 +102,34 @@ function CaptureZoneExplanation() {
 
   return (
     <>
-      <White>Capture Zones:</White> Energy fluctations are creating highly valuable zones of space.{' '}
+      <White>捕获区:</White> 能量波动正在创造非常有价值的空间区域。{' '}
       <Gold>
-        Invading and holding planets in these areas give you score! The zones are marked as gold
-        rings on your map.
+        在这些区域入侵和控制行星会给你分数！这些区域标记为金色
+        环在你的地图上。
       </Gold>
       <br />
       <br />
-      In order to capture a planet in a zone, you must:
+      为了在一个区域中捕获一颗行星，您必须：
       <ol>
-        {numberedItem(1, 'Own a planet in the capture zone.')}
-        {numberedItem(2, 'Start the invasion by clicking the Invade button.')}
+        {numberedItem(1, '在捕获区拥有一颗行星。')}
+        {numberedItem(2, '单击“入侵”按钮开始入侵。')}
         {numberedItem(
           3,
-          `Hold the planet for ${uiManager.contractConstants.CAPTURE_ZONE_HOLD_BLOCKS_REQUIRED}
-          blocks.`
+          `持有这个星球 ${uiManager.contractConstants.CAPTURE_ZONE_HOLD_BLOCKS_REQUIRED}
+          区块.`
         )}
         {numberedItem(
           4,
-          'Capture the planet by clicking the Capture button (Capturing does not require you to be in the zone, only Invading).'
+          '单击捕获按钮捕获行星（捕获不需要您在该区域中，只需要入侵）.'
         )}
       </ol>
       <br />
       <Red>
-        Planets can only be Captured once. However, after an Invasion has started, anyone can
-        capture it.
+        行星只能被捕获一次。然而，在入侵开始后，任何人都可以
+        抓住它.
       </Red>{' '}
-      If you see an opponent start their Invasion, you can take the planet from them and Capture it
-      for yourself!
+      如果您看到对手开始入侵，您可以从他们手中夺取星球并占领它
+      为自己！
     </>
   );
 }
@@ -162,7 +162,7 @@ function CaptureZones({
   return (
     <Numbers>
       <TooltipTrigger name={TooltipName.Empty} extraContent={<CaptureZoneExplanation />}>
-        Capture Zones change in {nextGenerationBlock - (currentBlockNumber || 0)} blocks.
+        捕获区变化 {nextGenerationBlock - (currentBlockNumber || 0)} 区块.
       </TooltipTrigger>
     </Numbers>
   );
@@ -190,13 +190,13 @@ export function TopBar({ twitterVerifyHook }: { twitterVerifyHook: Hook<boolean>
       <AlignCenterHorizontally style={{ width: '100%', justifyContent: 'space-around' }}>
         <TooltipTrigger
           name={TooltipName.Empty}
-          extraContent={<Text>Your burner wallet address.</Text>}
+          extraContent={<Text>您的 Burner 钱包地址。</Text>}
         >
           <AccountLabel includeAddressIfHasTwitter={true} width={'50px'} />
         </TooltipTrigger>
         <TooltipTrigger
           name={TooltipName.Empty}
-          extraContent={<Text>Your burner wallet balance.</Text>}
+          extraContent={<Text>您的一次性钱包余额。</Text>}
         >
           <Sub>({weiToEth(balance).toFixed(2)} xDAI)</Sub>
         </TooltipTrigger>
@@ -204,7 +204,7 @@ export function TopBar({ twitterVerifyHook }: { twitterVerifyHook: Hook<boolean>
           <>
             <TooltipTrigger
               name={TooltipName.Empty}
-              extraContent={<Text>Connect your burner wallet to your twitter account.</Text>}
+              extraContent={<Text>将您的 Burner 钱包连接到您的 Twitter 帐户。</Text>}
             >
               <ModalToggleButton
                 size='small'
