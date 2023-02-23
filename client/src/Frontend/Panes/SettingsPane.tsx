@@ -108,13 +108,13 @@ export function SettingsPane({
       try {
         const map = JSON.stringify(chunksAsArray);
         await window.navigator.clipboard.writeText(map);
-        setSuccess('Copied map!');
+        setSuccess('复制的地图！');
       } catch (err) {
         console.error(err);
-        setFailure('Failed to export');
+        setFailure('导出失败');
       }
     } else {
-      setFailure('Unable to export map right now.');
+      setFailure('现在无法导出地图。');
     }
   };
   const onImportMapFromTextBox = async () => {
@@ -123,7 +123,7 @@ export function SettingsPane({
       await uiManager.bulkAddNewChunks(chunks as Chunk[]);
       setImportMapByTextBoxValue('');
     } catch (e) {
-      setFailure('Invalid map data. Check the data in your clipboard.');
+      setFailure('地图数据无效。检查剪贴板中的数据。');
     }
   };
   const onImportMap = async () => {
@@ -133,7 +133,7 @@ export function SettingsPane({
         input = await window.navigator.clipboard.readText();
       } catch (err) {
         console.error(err);
-        setFailure('Unable to import map. Did you allow clipboard access?');
+        setFailure('无法导入地图。您是否允许访问剪贴板？');
         return;
       }
 
@@ -142,13 +142,13 @@ export function SettingsPane({
         chunks = JSON.parse(input);
       } catch (err) {
         console.error(err);
-        setFailure('Invalid map data. Check the data in your clipboard.');
+        setFailure('地图数据无效。检查剪贴板中的数据。');
         return;
       }
       await uiManager.bulkAddNewChunks(chunks as Chunk[]);
-      setSuccess('Successfully imported a map!');
+      setSuccess('成功导入地图！');
     } else {
-      setFailure('Unable to import map right now.');
+      setFailure('现在无法导入地图。');
     }
   };
 
@@ -180,37 +180,36 @@ export function SettingsPane({
   }, [scrollSpeed]);
 
   return (
-    <ModalPane id={ModalName.Settings} title='Settings' visible={visible} onClose={onClose}>
+    <ModalPane id={ModalName.Settings} title='设置' visible={visible} onClose={onClose}>
       <SettingsContent>
         {isDevelopment && (
           <Section>
-            <SectionHeader>Development</SectionHeader>
+            <SectionHeader>发展</SectionHeader>
             <BooleanSetting
               uiManager={uiManager}
               setting={Setting.ForceReloadEmbeddedPlugins}
-              settingDescription={'force reload embedded plugins'}
+              settingDescription={'强制重新加载嵌入式插件'}
             />
           </Section>
         )}
 
         <Section>
-          <SectionHeader>Burner Wallet Info</SectionHeader>
+          <SectionHeader>燃烧室 钱包信息</SectionHeader>
           <Row>
-            <span>Public Key</span>
+            <span>公钥</span>
             <span>{account}</span>
           </Row>
           <Row>
-            <span>Balance</span>
+            <span>余额</span>
             <span>{balance}</span>
           </Row>
         </Section>
 
         <Section>
-          <SectionHeader>Gas Price</SectionHeader>
-          Your gas price setting determines the price you pay for each transaction. A higher gas
-          price means your transactions will be prioritized by the blockchain, making them confirm
-          faster. We recommend using the auto average setting. All auto settings prices are pulled
-          from an oracle and are capped at 15 gwei.
+          <SectionHeader>天然气价格</SectionHeader>
+          您的 gas 价格设置决定了您为每笔交易支付的价格。更高的气体
+          价格意味着您的交易将被区块链优先考虑，使它们得到确认
+          快点。我们建议使用自动平均设置。所有自动设置价格都被拉了 来自 oracle，上限为 15 gwei。
           <Spacer height={16} />
           <MultiSelectSetting
             wide
@@ -242,40 +241,37 @@ export function SettingsPane({
         </Section>
 
         <Section>
-          <SectionHeader>Burner Wallet Info (Private)</SectionHeader>
-          Your secret key, together with your home planet's coordinates, grant you access to your
-          Dark Forest account on different browsers. You should save this info somewhere on your
-          computer.
+          <SectionHeader>燃烧室 钱包信息（私人）</SectionHeader>
+          你的秘密密钥，连同你家乡星球的坐标，授予你访问你的
+          不同浏览器上的黑暗森林帐户。您应该将此信息保存在您的某个位置 电脑。
           <Spacer height={16} />
-          <Red>WARNING:</Red> Never ever send this to anyone!
+          <Red>警告:</Red> 永远不要将此发送给任何人！
           <Spacer height={8} />
           <Btn size='stretch' variant='danger' onClick={doPrivateClick}>
-            Click {clicks} times to view info
+            点击 {clicks} 查看信息的次数
           </Btn>
         </Section>
 
         <Section>
-          <SectionHeader>Auto Confirm Transactions</SectionHeader>
-          Whether or not to auto-confirm all transactions, except purchases. This will allow you to
-          make moves, spend silver on upgrades, etc. without requiring you to confirm each
-          transaction. However, the client WILL ask for confirmation before sending transactions
-          that spend wallet funds.
+          <SectionHeader>自动确认交易</SectionHeader>
+          是否自动确认所有交易，购买除外。这将使您能够
+          采取行动、花费银币进行升级等，无需您确认每一项 交易。但是，客户将在发送交易前要求确认
+          花费钱包资金。
           <Spacer height={16} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.AutoApproveNonPurchaseTransactions}
-            settingDescription={'auto confirm non-purchase transactions'}
+            settingDescription={'自动确认非购买交易'}
           />
         </Section>
 
         <Section>
-          <SectionHeader>Import and Export Map Data</SectionHeader>
-          <Red>WARNING:</Red> Maps from others could be altered and are not guaranteed to be
-          correct!
+          <SectionHeader>导入和导出地图数据</SectionHeader>
+          <Red>警告:</Red> 其他人的地图可能会被更改，但不保证是 正确的！
           <Spacer height={16} />
           <TextInput
             value={importMapByTextBoxValue}
-            placeholder={'Paste map contents here'}
+            placeholder={'在此处粘贴地图内容'}
             onChange={(e: Event & React.ChangeEvent<DarkForestTextInput>) =>
               setImportMapByTextBoxValue(e.target.value)
             }
@@ -286,15 +282,15 @@ export function SettingsPane({
             onClick={onImportMapFromTextBox}
             disabled={importMapByTextBoxValue.length === 0}
           >
-            Import Map From Above
+            从上方导入地图
           </Btn>
           <Spacer height={8} />
           <Btn size='stretch' onClick={onExportMap}>
-            Copy Map to Clipboard
+            将地图复制到剪贴板
           </Btn>
           <Spacer height={8} />
           <Btn size='stretch' onClick={onImportMap}>
-            Import Map from Clipboard
+            从剪贴板导入地图
           </Btn>
           <Spacer height={8} />
           <Green>{success}</Green>
@@ -302,9 +298,9 @@ export function SettingsPane({
         </Section>
 
         <Section>
-          <SectionHeader>Change RPC Endpoint</SectionHeader>
+          <SectionHeader>更改 RPC 端点</SectionHeader>
           <Spacer height={8} />
-          Current RPC Endpoint: {rpcUrl}
+          当前 RPC 端点: {rpcUrl}
           <Spacer height={8} />
           <TextInput
             value={rpcUrl}
@@ -314,66 +310,62 @@ export function SettingsPane({
           />
           <Spacer height={8} />
           <Btn size='stretch' onClick={onChangeRpc}>
-            Change RPC URL
+            更改 RPC URL
           </Btn>
         </Section>
 
         <Section>
-          <SectionHeader>Metrics Opt Out</SectionHeader>
-          We collect a minimal set of data and statistics such as SNARK proving times, average
-          transaction times across browsers, and xDAI transaction errors, to help us optimize
-          performance and fix bugs. This does not include personal data like email or IP address.
+          <SectionHeader>指标选择退出</SectionHeader>
+          我们收集了一组最小的数据和统计数据，例如 SNARK 证明时间、平均 跨浏览器的交易时间和 xDAI
+          交易错误，以帮助我们优化 性能和修复错误。这不包括电子邮件或 IP 地址等个人数据。
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.OptOutMetrics}
-            settingDescription='metrics opt out'
+            settingDescription='指标选择退出'
           />
         </Section>
 
         <Section>
-          <SectionHeader>Performance</SectionHeader>
-          High performance mode turns off background rendering, and reduces the detail at which
-          smaller planets are rendered.
+          <SectionHeader>表现</SectionHeader>
+          高性能模式关闭背景渲染，并减少细节 渲染较小的行星。
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.HighPerformanceRendering}
-            settingDescription='high performance mode'
+            settingDescription='高性能模式'
           />
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.DisableEmojiRendering}
-            settingDescription='disable emoji rendering'
+            settingDescription='禁用表情符号渲染'
           />
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.DisableHatRendering}
-            settingDescription='disable hat rendering'
+            settingDescription='禁用帽子渲染'
           />
         </Section>
 
         <Section>
-          <SectionHeader>Notifications</SectionHeader>
+          <SectionHeader>通知</SectionHeader>
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.MoveNotifications}
-            settingDescription='show notifications for move transactions'
+            settingDescription='显示移动交易的通知'
           />
           <Spacer height={8} />
-          Auto clear transaction confirmation notifications after this many seconds. Set to a
-          negative number to not auto-clear.
+          这么多秒后自动清除交易确认通知。设置为 负数不自动清除。
           <Spacer height={8} />
           <NumberSetting
             uiManager={uiManager}
             setting={Setting.AutoClearConfirmedTransactionsAfterSeconds}
           />
           <Spacer height={8} />
-          Auto clear transaction rejection notifications after this many seconds. Set to a negative
-          number to not auto-clear.
+          这么多秒后自动清除交易拒绝通知。设置为负 数字不自动清除。
           <NumberSetting
             uiManager={uiManager}
             setting={Setting.AutoClearRejectedTransactionsAfterSeconds}
@@ -381,7 +373,7 @@ export function SettingsPane({
         </Section>
 
         <Section>
-          <SectionHeader>Scroll speed</SectionHeader>
+          <SectionHeader>滚动速度</SectionHeader>
           <Spacer height={8} />
           <Slider
             variant='filled'
@@ -396,70 +388,69 @@ export function SettingsPane({
         </Section>
 
         <Section>
-          <SectionHeader>Reset Tutorial</SectionHeader>
+          <SectionHeader>重置教程</SectionHeader>
           <Spacer height={8} />
           <Btn size='stretch' onClick={() => TutorialManager.getInstance(uiManager).reset()}>
-            Reset Tutorial
+            重置教程
           </Btn>
         </Section>
 
         <Section>
-          <SectionHeader>Disable Default Shortcuts</SectionHeader>
-          If you'd like to use custom shortcuts via a plugin, you can disable the default shortcuts
-          here.
+          <SectionHeader>禁用默认快捷方式</SectionHeader>
+          如果您想通过插件使用自定义快捷方式，您可以禁用默认快捷方式 这里。
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.DisableDefaultShortcuts}
-            settingDescription='toggle disable default shortcuts'
+            settingDescription='切换禁用默认快捷方式'
           />
         </Section>
 
         <Section>
-          <SectionHeader>Enable Experimental Features</SectionHeader>
-          Features that aren't quite ready for production but we think are cool.
+          <SectionHeader>启用实验性功能</SectionHeader>
+          尚未完全准备好投入生产但我们认为很酷的功能。
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.ExperimentalFeatures}
-            settingDescription='toggle expeirmental features'
+            settingDescription='切换实验功能'
           />
         </Section>
 
         <Section>
-          <SectionHeader>Renderer Settings</SectionHeader>
-          Some options for the default renderer which is included with the game.
+          <SectionHeader>渲染器设置</SectionHeader>
+          游戏中包含的默认渲染器的一些选项。
           <Spacer height={8} />
           <BooleanSetting
             uiManager={uiManager}
             setting={Setting.DisableFancySpaceEffect}
-            settingDescription='disable fancy space shaders'
+            settingDescription='禁用花哨的空间着色器'
           />
           <Spacer height={8} />
           <ColorSetting
             uiManager={uiManager}
             setting={Setting.RendererColorInnerNebula}
-            settingDescription='inner nebula color'
+            settingDescription='内部星云颜色'
           />
           <ColorSetting
             uiManager={uiManager}
             setting={Setting.RendererColorNebula}
-            settingDescription='nebula color'
+            settingDescription='星云颜色'
           />
           <ColorSetting
             uiManager={uiManager}
             setting={Setting.RendererColorSpace}
-            settingDescription='space color'
+            settingDescription='空间颜色'
           />
           <ColorSetting
             uiManager={uiManager}
             setting={Setting.RendererColorDeepSpace}
-            settingDescription='deep space color'
+            settingDescription='深空颜色'
           />
           <ColorSetting
             uiManager={uiManager}
             setting={Setting.RendererColorDeadSpace}
-            settingDescription='dead space color'
+            settingDescription='死亡空间颜色'
           />
         </Section>
       </SettingsContent>

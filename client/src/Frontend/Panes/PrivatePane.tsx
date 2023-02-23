@@ -29,7 +29,7 @@ export function PrivatePane({ visible, onClose }: { visible: boolean; onClose: (
   return (
     <ModalPane
       id={ModalName.Private}
-      title='View Secret Key and Home Coords'
+      title='查看密钥和家庭坐标'
       visible={visible}
       onClose={onClose}
     >

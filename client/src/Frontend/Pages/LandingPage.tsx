@@ -120,7 +120,7 @@ export default function LandingPage() {
             </ButtonWrapper>
           </Header>
           <EmSpacer height={3} />
-         参与方式
+          参与方式
           <EmSpacer height={1} />
           <Involved>
             <InvolvedItem
@@ -404,8 +404,7 @@ function Hiring() {
       <Modal contain={['top', 'left', 'right']} initialX={50} initialY={50}>
         <Title slot='title'>黑暗森林正在招聘！</Title>
         <div style={{ maxWidth: '300px', textAlign: 'justify' }}>
-          我们正在寻找经验丰富的全栈和 solidity 开发人员加入我们的团队！如果你
-          喜欢你所看到的,{' '}
+          我们正在寻找经验丰富的全栈和 solidity 开发人员加入我们的团队！如果你 喜欢你所看到的,{' '}
           <Link to='https://docs.google.com/forms/d/e/1FAIpQLSdaWvjxX4TrDDLidPXtgk6UW3rC082rpvi3AIPkCPxAahg_rg/viewform?usp=sf_link'>
             考虑申请
           </Link>

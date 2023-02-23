@@ -27,7 +27,7 @@ export function DiagnosticsPane({ visible, onClose }: { visible: boolean; onClos
   return (
     <ModalPane
       id={ModalName.Diagnostics}
-      title={'Diagnostics'}
+      title={'诊断'}
       visible={visible}
       onClose={onClose}
       width={RECOMMENDED_MODAL_WIDTH}
