@@ -84,7 +84,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
     getEthConnection()
       .then((ethConnection) => setEthConnection(ethConnection))
       .catch((e) => {
-        alert('error connecting to blockchain');
+        alert('连接到区块链时出错');
         console.log(e);
       });
   }, []);
@@ -97,31 +97,31 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
 
       if (issues.includes(Incompatibility.MobileOrTablet)) {
         terminal.current?.println(
-          'ERROR: Mobile or tablet device detected. Please use desktop.',
+          '错误：检测到移动或平板设备。请使用台式机。',
           TerminalTextStyle.Red
         );
       }
 
       if (issues.includes(Incompatibility.NoIDB)) {
         terminal.current?.println(
-          'ERROR: IndexedDB not found. Try using a different browser.',
+          '错误：未找到 IndexedDB。尝试使用不同的浏览器。',
           TerminalTextStyle.Red
         );
       }
 
       if (issues.includes(Incompatibility.UnsupportedBrowser)) {
         terminal.current?.println(
-          'ERROR: Browser unsupported. Try Brave, Firefox, or Chrome.',
+          '错误：浏览器不受支持。试试 Brave、Firefox 或 Chrome。',
           TerminalTextStyle.Red
         );
       }
 
       if (issues.length > 0) {
         terminal.current?.print(
-          `${issues.length.toString()} errors found. `,
+          `${issues.length.toString()} 发现错误。 `,
           TerminalTextStyle.Red
         );
-        terminal.current?.println('Please resolve them and refresh the page.');
+        terminal.current?.println('请解决它们并刷新页面。');
         setStep(TerminalPromptStep.ASKING_WAITLIST_EMAIL);
       } else {
         setStep(TerminalPromptStep.COMPATIBILITY_CHECKS_PASSED);
@@ -135,23 +135,23 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
       if (isLobby) {
         terminal.current?.newline();
         terminal.current?.printElement(
-          <MythicLabelText text={`You are joining a Dark Forest lobby`} />
+          <MythicLabelText text={`您正在加入一个黑暗森林大厅`} />
         );
         terminal.current?.newline();
         terminal.current?.newline();
       } else {
         terminal.current?.newline();
         terminal.current?.newline();
-        terminal.current?.printElement(<MythicLabelText text={`                 Dark Forest`} />);
+        terminal.current?.printElement(<MythicLabelText text={`                 黑暗森林`} />);
         terminal.current?.newline();
         terminal.current?.newline();
 
         terminal.current?.print('    ');
-        terminal.current?.print('Version', TerminalTextStyle.Sub);
+        terminal.current?.print('版本', TerminalTextStyle.Sub);
         terminal.current?.print('    ');
-        terminal.current?.print('Date', TerminalTextStyle.Sub);
+        terminal.current?.print('日期', TerminalTextStyle.Sub);
         terminal.current?.print('              ');
-        terminal.current?.print('Champion', TerminalTextStyle.Sub);
+        terminal.current?.print('冠军', TerminalTextStyle.Sub);
         terminal.current?.newline();
 
         terminal.current?.print('    v0.1       ', TerminalTextStyle.Text);
@@ -263,24 +263,24 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
       }
 
       const accounts = getAccounts();
-      terminal.current?.println(`Found ${accounts.length} accounts on this device.`);
+      terminal.current?.println(`此设备上存在 ${accounts.length}个帐户。`);
       terminal.current?.println(``);
 
       if (accounts.length > 0) {
         terminal.current?.print('(a) ', TerminalTextStyle.Sub);
-        terminal.current?.println('Login with existing account.');
+        terminal.current?.println('使用现有帐户登录。');
       }
 
       terminal.current?.print('(n) ', TerminalTextStyle.Sub);
-      terminal.current?.println(`Generate new burner wallet account.`);
+      terminal.current?.println(`生成新的 Burner 钱包帐户。`);
       terminal.current?.print('(i) ', TerminalTextStyle.Sub);
-      terminal.current?.println(`Import private key.`);
+      terminal.current?.println(`导入私钥。`);
       terminal.current?.println(``);
-      terminal.current?.println(`Select an option:`, TerminalTextStyle.Text);
+      terminal.current?.println(`选择一个选项：`, TerminalTextStyle.Text);
 
       if (selectedAddress !== null) {
         terminal.current?.println(
-          `Selecting account ${selectedAddress} from url...`,
+          `从网址选择账户 ${selectedAddress} ...`,
           TerminalTextStyle.Green
         );
 
@@ -288,7 +288,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         // In that case, we want to take the most recently created account.
         const account = reverse(getAccounts()).find((a) => a.address === selectedAddress);
         if (!account) {
-          terminal.current?.println('Unrecognized account found in url.', TerminalTextStyle.Red);
+          terminal.current?.println('在 url 中发现无法识别的帐户。', TerminalTextStyle.Red);
           return;
         }
 
@@ -297,7 +297,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
           setStep(TerminalPromptStep.ACCOUNT_SET);
         } catch (e) {
           terminal.current?.println(
-            'An unknown error occurred. please try again.',
+            '出现未知错误。请再试一次.',
             TerminalTextStyle.Red
           );
         }
