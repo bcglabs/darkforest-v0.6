@@ -574,31 +574,31 @@ class GameManager extends EventEmitter {
     contractAddress: EthAddress;
   }): Promise<GameManager> {
     if (!terminal.current) {
-      throw new Error('you must pass in a handle to a terminal');
+      throw new Error('您必须将句柄传递给终端');
     }
 
     const account = connection.getAddress();
 
     if (!account) {
-      throw new Error('no account on eth connection');
+      throw new Error('eth连接上没有帐户');
     }
 
     const gameStateDownloader = new InitialGameStateDownloader(terminal.current);
     const contractsAPI = await makeContractsAPI({ connection, contractAddress });
 
-    terminal.current?.println('Loading game data from disk...');
+    terminal.current?.println('正在从磁盘加载游戏数据...');
 
     const persistentChunkStore = await PersistentChunkStore.create({ account, contractAddress });
 
-    terminal.current?.println('Downloading data from Ethereum blockchain...');
-    terminal.current?.println('(the contract is very big. this may take a while)');
+    terminal.current?.println('从以太坊区块链下载数据...');
+    terminal.current?.println('(合同很大。可能还要等一下)');
     terminal.current?.newline();
 
     const initialState = await gameStateDownloader.download(contractsAPI, persistentChunkStore);
     const possibleHomes = await persistentChunkStore.getHomeLocations();
 
     terminal.current?.println('');
-    terminal.current?.println('Building Index...');
+    terminal.current?.println('建筑指数...');
 
     await persistentChunkStore.saveTouchedPlanetIds(initialState.allTouchedPlanetIds);
     await persistentChunkStore.saveRevealedCoords(initialState.allRevealedCoords);
@@ -761,14 +761,14 @@ class GameManager extends EventEmitter {
         if (isUnconfirmedRevealTx(tx)) {
           await gameManager.hardRefreshPlanet(tx.intent.locationId);
         } else if (isUnconfirmedInitTx(tx)) {
-          terminal.current?.println('Loading Home Planet from Blockchain...');
+          terminal.current?.println('从区块链加载 Home Planet...');
           const retries = 5;
           for (let i = 0; i < retries; i++) {
             const planet = await gameManager.contractsAPI.getPlanetById(tx.intent.locationId);
             if (planet) {
               break;
             } else if (i === retries - 1) {
-              console.error("couldn't load player's home planet");
+              console.error("无法加载玩家的家乡星球");
             } else {
               await delay(2000);
             }
@@ -1670,7 +1670,7 @@ class GameManager extends EventEmitter {
 
   private checkGameHasEnded(): boolean {
     if (Date.now() / 1000 > this.endTimeSeconds) {
-      this.terminal.current?.println('[ERROR] Game has ended.');
+      this.terminal.current?.println('[错误] 游戏结束。');
       return true;
     }
     return false;
@@ -1688,7 +1688,7 @@ class GameManager extends EventEmitter {
    */
   public timeUntilNextBroadcastAvailable() {
     if (!this.account) {
-      throw new Error('no account set');
+      throw new Error('没有设置帐号');
     }
 
     const myLastRevealTimestamp = this.players.get(this.account)?.lastRevealTimestamp;
@@ -1709,34 +1709,34 @@ class GameManager extends EventEmitter {
   public async revealLocation(planetId: LocationId): Promise<Transaction<UnconfirmedReveal>> {
     try {
       if (!this.account) {
-        throw new Error('no account set');
+        throw new Error('没有设置帐号');
       }
 
       const planet = this.entityStore.getPlanetWithId(planetId);
 
       if (!planet) {
-        throw new Error("you can't reveal a planet you haven't discovered");
+        throw new Error("你不能透露一个你还没有发现的星球");
       }
 
       if (!isLocatable(planet)) {
-        throw new Error("you can't reveal a planet whose coordinates you don't know");
+        throw new Error("你不能透露一个你不知道其坐标的行星");
       }
 
       if (planet.coordsRevealed) {
-        throw new Error("this planet's location is already revealed");
+        throw new Error("这个星球的位置已经揭晓");
       }
 
       if (planet.transactions?.hasTransaction(isUnconfirmedRevealTx)) {
-        throw new Error("you're already revealing this planet's location");
+        throw new Error("你已经透露了这个星球的位置");
       }
 
       if (this.entityStore.transactions.hasTransaction(isUnconfirmedRevealTx)) {
-        throw new Error("you're already broadcasting coordinates");
+        throw new Error("你已经在广播坐标");
       }
 
       const myLastRevealTimestamp = this.players.get(this.account)?.lastRevealTimestamp;
       if (myLastRevealTimestamp && Date.now() < this.getNextBroadcastAvailableTimestamp()) {
-        throw new Error('still on cooldown for broadcasting');
+        throw new Error('仍处于广播冷却时间');
       }
 
       // this is shitty. used for the popup window
@@ -1749,7 +1749,7 @@ class GameManager extends EventEmitter {
         );
 
         this.terminal.current?.println(
-          'REVEAL: calculated SNARK with args:',
+          'REVEAL：使用 args 计算 SNARK：',
           TerminalTextStyle.Sub
         );
         this.terminal.current?.println(
@@ -1782,29 +1782,29 @@ class GameManager extends EventEmitter {
   public async invadePlanet(locationId: LocationId) {
     try {
       if (!this.captureZoneGenerator) {
-        throw new Error('Capture zones are not enabled in this game');
+        throw new Error('此游戏未启用捕获区');
       }
 
       const planet = this.entityStore.getPlanetWithId(locationId);
 
       if (!planet || !isLocatable(planet)) {
-        throw new Error("you can't invade a planet you haven't discovered");
+        throw new Error("你不能入侵一个你还没有发现的星球");
       }
 
       if (planet.destroyed) {
-        throw new Error("you can't invade destroyed planets");
+        throw new Error("你不能入侵被摧毁的行星");
       }
 
       if (planet.invader !== EMPTY_ADDRESS) {
-        throw new Error("you can't invade planets that have already been invaded");
+        throw new Error("你不能入侵已经被入侵的行星");
       }
 
       if (planet.owner !== this.account) {
-        throw new Error('you can only invade planets you own');
+        throw new Error('你只能入侵你拥有的星球');
       }
 
       if (!this.captureZoneGenerator.isInZone(planet.locationId)) {
-        throw new Error("you can't invade planets that are not in a capture zone");
+        throw new Error("你不能入侵不在占领区的行星");
       }
 
       localStorage.setItem(`${this.getAccount()?.toLowerCase()}-invadePlanet`, locationId);
@@ -1816,7 +1816,7 @@ class GameManager extends EventEmitter {
         );
 
         this.terminal.current?.println(
-          'REVEAL: calculated SNARK with args:',
+          'REVEAL：使用 args 计算 SNARK：',
           TerminalTextStyle.Sub
         );
         this.terminal.current?.println(
@@ -1848,23 +1848,23 @@ class GameManager extends EventEmitter {
       const planet = this.entityStore.getPlanetWithId(locationId);
 
       if (!planet) {
-        throw new Error('planet is not loaded');
+        throw new Error('行星未加载');
       }
 
       if (planet.destroyed) {
-        throw new Error("you can't capture destroyed planets");
+        throw new Error("你无法捕获被摧毁的行星");
       }
 
       if (planet.capturer !== EMPTY_ADDRESS) {
-        throw new Error("you can't capture planets that have already been captured");
+        throw new Error("你不能捕获已经捕获的行星");
       }
 
       if (planet.owner !== this.account) {
-        throw new Error('you can only capture planets you own');
+        throw new Error('你只能捕获你拥有的行星');
       }
 
       if (planet.energy < planet.energyCap * 0.8) {
-        throw new Error('the planet needs >80% energy before capturing');
+        throw new Error('行星在捕获之前需要 >80% 的能量');
       }
 
       if (
@@ -1873,7 +1873,7 @@ class GameManager extends EventEmitter {
           planet.invadeStartBlock + this.contractConstants.CAPTURE_ZONE_HOLD_BLOCKS_REQUIRED
       ) {
         throw new Error(
-          `you need to hold a planet for ${this.contractConstants.CAPTURE_ZONE_HOLD_BLOCKS_REQUIRED} blocks before capturing`
+          `你需要持有一颗行星 ${this.contractConstants.CAPTURE_ZONE_HOLD_BLOCKS_REQUIRED} 捕获前的块`
         );
       }
 
@@ -1900,15 +1900,15 @@ class GameManager extends EventEmitter {
   public async joinGame(beforeRetry: (e: Error) => Promise<boolean>): Promise<void> {
     try {
       if (this.checkGameHasEnded()) {
-        throw new Error('game has ended');
+        throw new Error('游戏结束');
       }
 
       const planet = await this.findRandomHomePlanet();
       this.homeLocation = planet.location;
       this.terminal.current?.println('');
-      this.terminal.current?.println(`Found Suitable Home Planet: ${getPlanetName(planet)} `);
+      this.terminal.current?.println(`找到合适的家园星球: ${getPlanetName(planet)} `);
       this.terminal.current?.println(
-        `Its coordinates are: (${planet.location.coords.x}, ${planet.location.coords.y})`
+        `它的坐标是： (${planet.location.coords.x}, ${planet.location.coords.y})`
       );
       this.terminal.current?.println('');
 
@@ -1920,7 +1920,7 @@ class GameManager extends EventEmitter {
           planet.location.coords.y,
           Math.floor(Math.sqrt(planet.location.coords.x ** 2 + planet.location.coords.y ** 2)) + 1 // floor(sqrt(x^2 + y^2)) + 1
         );
-        this.terminal.current?.println('INIT: calculated SNARK with args:', TerminalTextStyle.Sub);
+        this.terminal.current?.println('INIT：使用 args 计算的 SNARK：', TerminalTextStyle.Sub);
         this.terminal.current?.println(
           JSON.stringify(hexifyBigIntNestedArray(args.slice(0, 3) as unknown as string[])),
           TerminalTextStyle.Sub
@@ -1937,7 +1937,7 @@ class GameManager extends EventEmitter {
         args: getArgs(),
       };
 
-      this.terminal.current?.println('INIT: proving that planet exists', TerminalTextStyle.Sub);
+      this.terminal.current?.println('INIT：证明行星存在', TerminalTextStyle.Sub);
 
       this.initMiningManager(planet.location.coords); // get an early start
 
@@ -1974,7 +1974,7 @@ class GameManager extends EventEmitter {
   private async getSpaceships() {
     if (!this.account || !this.homeLocation?.hash) return;
     if (!Object.values(this.contractConstants.SPACESHIPS).some((a) => a === true)) {
-      console.log('all spaceships disabled, not calling the tx');
+      console.log('禁用所有宇宙飞船，不调用 tx');
       return;
     }
 
@@ -2087,21 +2087,21 @@ class GameManager extends EventEmitter {
       );
 
       this.terminal.current?.println(``);
-      this.terminal.current?.println(`Initializing Home Planet Search...`);
+      this.terminal.current?.println(`正在初始化 Home Planet Search...`);
       this.terminal.current?.println(``);
-      this.terminal.current?.println(`Chunked explorer: start!`);
+      this.terminal.current?.println(`分块资源管理器：开始！`);
       this.terminal.current?.println(
-        `Each chunk contains ${MIN_CHUNK_SIZE}x${MIN_CHUNK_SIZE} coordinates.`
+        `每个块包含 ${MIN_CHUNK_SIZE}x${MIN_CHUNK_SIZE} 坐标.`
       );
       const percentSpawn = (1 / this.contractConstants.PLANET_RARITY) * 100;
       const printProgress = 8;
-      this.terminal.current?.print(`Each coordinate has a`);
+      this.terminal.current?.print(`每个坐标都有一个`);
       this.terminal.current?.print(` ${percentSpawn}%`, TerminalTextStyle.Text);
-      this.terminal.current?.print(` chance of spawning a planet.`);
+      this.terminal.current?.print(` 产生行星的机会。`);
       this.terminal.current?.println('');
 
       this.terminal.current?.println(
-        `Hashing first ${MIN_CHUNK_SIZE ** 2 * printProgress} potential home planets...`
+        `首先散列 ${MIN_CHUNK_SIZE ** 2 * printProgress} 潜在的家庭行星...`
       );
 
       homePlanetFinder.on(MinerManagerEvent.DiscoveredNewChunk, (chunk: Chunk) => {
@@ -2109,7 +2109,7 @@ class GameManager extends EventEmitter {
         minedChunksCount++;
         if (minedChunksCount % printProgress === 0) {
           this.terminal.current?.println(
-            `Hashed ${minedChunksCount * MIN_CHUNK_SIZE ** 2} potential home planets...`
+            `散列 ${minedChunksCount * MIN_CHUNK_SIZE ** 2} 潜在的家庭行星...`
           );
         }
         for (const homePlanetLocation of chunk.planetLocations) {
@@ -2142,7 +2142,7 @@ class GameManager extends EventEmitter {
             const homePlanet = this.getGameObjects().getPlanetWithLocation(homePlanetLocation);
 
             if (!homePlanet) {
-              reject(new Error("Unable to create default planet for your home planet's location."));
+              reject(new Error("无法为您所在星球的位置创建默认星球。"));
             } else {
               // can cast to `LocatablePlanet` because we know its location, as we just mined it.
               resolve(homePlanet as LocatablePlanet);
@@ -2164,34 +2164,34 @@ class GameManager extends EventEmitter {
 
     try {
       if (!planet || !isLocatable(planet)) {
-        throw new Error("you can't prospect a planet you haven't discovered");
+        throw new Error("你无法展望一个你还没有发现的星球");
       }
 
       if (!bypassChecks) {
         if (this.checkGameHasEnded()) throw new Error('game ended');
 
         if (!planet) {
-          throw new Error("you can't prospect a planet you haven't discovered");
+          throw new Error("你无法展望一个你还没有发现的星球");
         }
 
         if (planet.owner !== this.getAccount()) {
-          throw new Error("you can't prospect a planet you don't own");
+          throw new Error("你无法展望一个你不拥有的星球");
         }
 
         if (!isLocatable(planet)) {
-          throw new Error("you don't know this planet's location");
+          throw new Error("你不知道这个星球的位置");
         }
 
         if (planet.prospectedBlockNumber !== undefined) {
-          throw new Error('someone already prospected this planet');
+          throw new Error('有人已经展望了这个星球');
         }
 
         if (planet.transactions?.hasTransaction(isUnconfirmedProspectPlanetTx)) {
-          throw new Error("you're already looking bro...");
+          throw new Error("你已经在找兄弟了...");
         }
 
         if (planet.planetType !== PlanetType.RUINS) {
-          throw new Error("this planet doesn't have an artifact on it.");
+          throw new Error("这个星球上没有神器。");
         }
       }
 
@@ -2228,32 +2228,32 @@ class GameManager extends EventEmitter {
 
     try {
       if (!planet) {
-        throw new Error("you can't find artifacts on a planet you haven't discovered");
+        throw new Error("你无法在你尚未发现的星球上找到文物");
       }
 
       if (!isLocatable(planet)) {
-        throw new Error("you don't know the biome of this planet");
+        throw new Error("你不知道这个星球的生物群系");
       }
 
       if (!bypassChecks) {
         if (this.checkGameHasEnded()) {
-          throw new Error('game has ended');
+          throw new Error('游戏结束');
         }
 
         if (planet.owner !== this.getAccount()) {
-          throw new Error("you can't find artifacts on planets you don't own");
+          throw new Error("你无法在不属于你的星球上找到文物");
         }
 
         if (planet.hasTriedFindingArtifact) {
-          throw new Error('someone already tried finding an artifact on this planet');
+          throw new Error('有人已经尝试在这个星球上寻找神器');
         }
 
         if (planet.transactions?.hasTransaction(isUnconfirmedFindArtifactTx)) {
-          throw new Error("you're already looking bro...");
+          throw new Error("你已经在找兄弟了...");
         }
 
         if (planet.planetType !== PlanetType.RUINS) {
-          throw new Error("this planet doesn't have an artifact on it.");
+          throw new Error("这个星球上没有神器。");
         }
       }
 
@@ -2279,7 +2279,7 @@ class GameManager extends EventEmitter {
               .map(this.getArtifactWithId.bind(this))
               .find((a: Artifact) => a?.planetDiscoveredOn === planet.locationId) as Artifact;
           }).then((foundArtifact) => {
-            if (!foundArtifact) throw new Error('Artifact not found?');
+            if (!foundArtifact) throw new Error('找不到神器？');
             const notifManager = NotificationManager.getInstance();
 
             notifManager.artifactFound(planet as LocatablePlanet, foundArtifact);
@@ -2311,7 +2311,7 @@ class GameManager extends EventEmitter {
       localStorage.setItem(`${this.getAccount()?.toLowerCase()}-depositArtifact`, artifactId);
 
       if (this.checkGameHasEnded()) {
-        const error = new Error('game has ended');
+        const error = new Error('游戏结束');
         this.getNotificationsManager().txInitError('depositArtifact', error.message);
         throw error;
       }
@@ -2348,14 +2348,14 @@ class GameManager extends EventEmitter {
     try {
       if (!bypassChecks) {
         if (this.checkGameHasEnded()) {
-          throw new Error('game has ended');
+          throw new Error('游戏结束');
         }
         const planet = this.entityStore.getPlanetWithId(locationId);
         if (!planet) {
-          throw new Error('tried to withdraw from unknown planet');
+          throw new Error('试图撤离未知星球');
         }
         if (!artifactId) {
-          throw new Error('must supply an artifact id');
+          throw new Error('必须提供工件 ID');
         }
       }
 
@@ -2372,7 +2372,7 @@ class GameManager extends EventEmitter {
       };
 
       this.terminal.current?.println(
-        'WITHDRAW_ARTIFACT: sending withdrawal to blockchain',
+        'WITHDRAW_ARTIFACT：将取款发送到区块链',
         TerminalTextStyle.Sub
       );
       this.terminal.current?.newline();
@@ -2398,19 +2398,19 @@ class GameManager extends EventEmitter {
   ): Promise<Transaction<UnconfirmedActivateArtifact>> {
     try {
       if (this.checkGameHasEnded()) {
-        throw new Error('game has ended');
+        throw new Error('游戏结束');
       }
       if (!bypassChecks) {
         const planet = this.entityStore.getPlanetWithId(locationId);
         if (this.checkGameHasEnded()) {
-          throw new Error('game has ended');
+          throw new Error('游戏结束');
         }
 
         if (!planet) {
-          throw new Error('tried to activate on an unknown planet');
+          throw new Error('试图在一个未知的星球上激活');
         }
         if (!artifactId) {
-          throw new Error('must supply an artifact id');
+          throw new Error('必须提供工件 ID');
         }
       }
 
@@ -2449,7 +2449,7 @@ class GameManager extends EventEmitter {
       if (!bypassChecks) {
         const planet = this.entityStore.getPlanetWithId(locationId);
         if (!planet) {
-          throw new Error('tried to deactivate on an unknown planet');
+          throw new Error('试图在一个未知的星球上停用');
         }
       }
 
@@ -2481,31 +2481,31 @@ class GameManager extends EventEmitter {
   ): Promise<Transaction<UnconfirmedWithdrawSilver>> {
     try {
       if (!bypassChecks) {
-        if (!this.account) throw new Error('no account');
+        if (!this.account) throw new Error('没有账号');
         if (this.checkGameHasEnded()) {
-          throw new Error('game has ended');
+          throw new Error('游戏结束');
         }
         const planet = this.entityStore.getPlanetWithId(locationId);
         if (!planet) {
-          throw new Error('tried to withdraw silver from an unknown planet');
+          throw new Error('试图从一个未知的星球上提取白银');
         }
         if (planet.planetType !== PlanetType.TRADING_POST) {
-          throw new Error('can only withdraw silver from spacetime rips');
+          throw new Error('只能从时空裂缝中提取白银');
         }
         if (planet.owner !== this.account) {
-          throw new Error('can only withdraw silver from a planet you own');
+          throw new Error('只能从你拥有的星球上提取白银');
         }
         if (planet.transactions?.hasTransaction(isUnconfirmedWithdrawSilverTx)) {
-          throw new Error('a withdraw silver action is already in progress for this planet');
+          throw new Error('这个星球的撤银行动已经在进行中');
         }
         if (amount > planet.silver) {
-          throw new Error('not enough silver to withdraw!');
+          throw new Error('银子不够提款！');
         }
         if (amount === 0) {
-          throw new Error('must withdraw more than 0 silver!');
+          throw new Error('0银以上必须提现！');
         }
         if (planet.destroyed) {
-          throw new Error("can't withdraw silver from a destroyed planet");
+          throw new Error("无法从被摧毁的星球上提取白银");
         }
       }
 
@@ -2592,11 +2592,11 @@ class GameManager extends EventEmitter {
    */
   public async clearEmoji(locationId: LocationId) {
     if (this.account === undefined) {
-      throw new Error("can't clear emoji: not logged in");
+      throw new Error("无法清除表情符号：未登录");
     }
 
     if (this.getPlanetWithId(locationId)?.unconfirmedClearEmoji) {
-      throw new Error(`can't clear emoji: alreading clearing emoji from ${locationId}`);
+      throw new Error(`无法清除表情符号：正在从中清除表情符号 ${locationId}`);
     }
 
     this.getGameObjects().updatePlanet(locationId, (p) => {
@@ -2638,11 +2638,11 @@ class GameManager extends EventEmitter {
     body: unknown
   ) {
     if (this.account === undefined) {
-      throw new Error("can't submit planet message not logged in");
+      throw new Error("无法提交星球消息未登录");
     }
 
     if (this.getPlanetWithId(locationId)?.unconfirmedAddEmoji) {
-      throw new Error(`can't submit planet message: already submitting for planet ${locationId}`);
+      throw new Error(`无法提交行星消息：已经提交行星 ${locationId}`);
     }
 
     this.getGameObjects().updatePlanet(locationId, (p) => {
@@ -2698,22 +2698,22 @@ class GameManager extends EventEmitter {
 
     try {
       if (!bypassChecks && this.checkGameHasEnded()) {
-        throw new Error('game has ended');
+        throw new Error('游戏结束');
       }
 
       const arrivalsToOriginPlanet = this.entityStore.getArrivalIdsForLocation(from);
       const hasIncomingVoyage = arrivalsToOriginPlanet && arrivalsToOriginPlanet.length > 0;
       if (abandoning && hasIncomingVoyage) {
-        throw new Error('cannot abandon a planet that has incoming voyages');
+        throw new Error('不能放弃即将航行的行星');
       }
 
       const oldLocation = this.entityStore.getLocationOfPlanet(from);
       const newLocation = this.entityStore.getLocationOfPlanet(to);
       if (!oldLocation) {
-        throw new Error('tried to move from planet that does not exist');
+        throw new Error('试图离开不存在的星球');
       }
       if (!newLocation) {
-        throw new Error('tried to move from planet that does not exist');
+        throw new Error('试图离开不存在的星球');
       }
 
       const oldX = oldLocation.coords.x;
@@ -2730,7 +2730,7 @@ class GameManager extends EventEmitter {
       const silverMoved = !abandoning ? silver : 0;
 
       if (newX ** 2 + newY ** 2 >= this.worldRadius ** 2) {
-        throw new Error('attempted to move out of bounds');
+        throw new Error('试图越界');
       }
 
       const oldPlanet = this.entityStore.getPlanetWithLocation(oldLocation);
@@ -2739,7 +2739,7 @@ class GameManager extends EventEmitter {
         ((!bypassChecks && !this.account) || !oldPlanet || oldPlanet.owner !== this.account) &&
         !isSpaceShip(this.getArtifactWithId(artifactMoved)?.artifactType)
       ) {
-        throw new Error('attempted to move from a planet not owned by player');
+        throw new Error('试图从不属于玩家的星球移动');
       }
 
       const getArgs = async (): Promise<unknown[]> => {
@@ -2763,7 +2763,7 @@ class GameManager extends EventEmitter {
           abandoning ? '1' : '0',
         ] as MoveArgs;
 
-        this.terminal.current?.println('MOVE: calculated SNARK with args:', TerminalTextStyle.Sub);
+        this.terminal.current?.println('MOVE：使用 args 计算 SNARK：', TerminalTextStyle.Sub);
         this.terminal.current?.println(
           JSON.stringify(hexifyBigIntNestedArray(args)),
           TerminalTextStyle.Sub
@@ -2794,13 +2794,13 @@ class GameManager extends EventEmitter {
 
         if (!bypassChecks) {
           if (!artifact) {
-            throw new Error("couldn't find this artifact");
+            throw new Error("找不到这个神器");
           }
           if (isActivated(artifact)) {
-            throw new Error("can't move an activated artifact");
+            throw new Error("无法移动激活的神器");
           }
           if (!oldPlanet?.heldArtifactIds?.includes(artifactMoved)) {
-            throw new Error("that artifact isn't on this planet!");
+            throw new Error("那个神器不在这个星球上！");
           }
         }
       }
@@ -2863,12 +2863,12 @@ class GameManager extends EventEmitter {
 
     try {
       if (!planetLoc) {
-        console.error('planet not found');
-        throw new Error('[TX ERROR] Planet not found');
+        console.error('未找到行星');
+        throw new Error('[TX 错误] 未找到行星');
       }
       if (!planet) {
         console.error('planet not found');
-        throw new Error('[TX ERROR] Planet not found');
+        throw new Error('[TX 错误] 未找到行星');
       }
 
       localStorage.setItem(`${this.getAccount()?.toLowerCase()}-hatPlanet`, planetId);
@@ -2908,17 +2908,17 @@ class GameManager extends EventEmitter {
     try {
       if (!bypassChecks) {
         if (this.checkGameHasEnded()) {
-          throw new Error('game has ended');
+          throw new Error('游戏结束');
         }
         const planetLoc = this.entityStore.getLocationOfPlanet(planetId);
         if (!planetLoc) {
-          console.error('planet not found');
-          throw new Error('[TX ERROR] Planet not found');
+          console.error('未找到行星');
+          throw new Error('[TX 错误] 未找到行星');
         }
         const planet = this.entityStore.getPlanetWithLocation(planetLoc);
         if (!planet) {
-          console.error('planet not found');
-          throw new Error('[TX ERROR] Planet not found');
+          console.error('未找到行星');
+          throw new Error('[TX 错误] 未找到行星');
         }
       }
 
@@ -2950,7 +2950,7 @@ class GameManager extends EventEmitter {
     try {
       if (!bypassChecks) {
         if (!this.checkGameHasEnded()) {
-          throw new Error('game has not ended');
+          throw new Error('游戏还没有结束');
         }
       }
 
@@ -3008,7 +3008,7 @@ class GameManager extends EventEmitter {
    */
   async bulkAddNewChunks(chunks: Chunk[]): Promise<void> {
     this.terminal.current?.println(
-      'IMPORTING MAP: if you are importing a large map, this may take a while...'
+      '导入地图：如果您要导入大地图，这可能需要一段时间...'
     );
     const planetIdsToUpdate: LocationId[] = [];
     for (const chunk of chunks) {
@@ -3023,7 +3023,7 @@ class GameManager extends EventEmitter {
       }
     }
     this.terminal.current?.println(
-      `downloading data for ${planetIdsToUpdate.length} planets...`,
+      `下载数据 ${planetIdsToUpdate.length} 行星...`,
       TerminalTextStyle.Sub
     );
     this.bulkHardRefreshPlanets(planetIdsToUpdate);
@@ -3037,7 +3037,7 @@ class GameManager extends EventEmitter {
    */
   getMaxMoveDist(planetId: LocationId, sendingPercent: number, abandoning: boolean): number {
     const planet = this.getPlanetWithId(planetId);
-    if (!planet) throw new Error('origin planet unknown');
+    if (!planet) throw new Error('起源星球未知');
     return getRange(planet, sendingPercent, this.getRangeBuff(abandoning));
   }
 
@@ -3049,10 +3049,10 @@ class GameManager extends EventEmitter {
     const from = this.entityStore.getPlanetWithId(fromId);
     const to = this.entityStore.getPlanetWithId(toId);
 
-    if (!from) throw new Error('origin planet unknown');
-    if (!to) throw new Error('destination planet unknown');
-    if (!isLocatable(from)) throw new Error('origin location unknown');
-    if (!isLocatable(to)) throw new Error('destination location unknown');
+    if (!from) throw new Error('起源星球未知');
+    if (!to) throw new Error('目的地星球未知');
+    if (!isLocatable(from)) throw new Error('原产地不详');
+    if (!isLocatable(to)) throw new Error('目的地位置未知');
 
     const wormholeFactors = this.getWormholeFactors(from, to);
 
@@ -3078,8 +3078,8 @@ class GameManager extends EventEmitter {
    */
   getPlanetsInRange(planetId: LocationId, sendingPercent: number, abandoning: boolean): Planet[] {
     const planet = this.entityStore.getPlanetWithId(planetId);
-    if (!planet) throw new Error('planet unknown');
-    if (!isLocatable(planet)) throw new Error('planet location unknown');
+    if (!planet) throw new Error('未知星球');
+    if (!isLocatable(planet)) throw new Error('行星位置未知');
 
     // Performance improvements originally suggested by [@modokon](https://github.com/modukon)
     // at https://github.com/darkforest-eth/client/issues/15
@@ -3108,7 +3108,7 @@ class GameManager extends EventEmitter {
     abandoning = false
   ): number {
     const from = this.getPlanetWithId(fromId);
-    if (!from) throw new Error('origin planet unknown');
+    if (!from) throw new Error('起源星球未知');
     const dist = this.getDist(fromId, toId);
     const range = from.range * this.getRangeBuff(abandoning);
     const rangeSteps = dist / range;
@@ -3133,9 +3133,9 @@ class GameManager extends EventEmitter {
     const from = this.getPlanetWithId(fromId);
     const to = this.getPlanetWithId(toId);
 
-    if (!from) throw new Error(`unknown planet`);
+    if (!from) throw new Error(`未知星球`);
     if (distance === undefined && toId === undefined)
-      throw new Error(`you must provide either a target planet or a distance`);
+      throw new Error(`您必须提供目标行星或距离`);
 
     const dist = (toId && this.getDist(fromId, toId)) || (distance as number);
 
@@ -3217,7 +3217,7 @@ class GameManager extends EventEmitter {
    */
   getTimeForMove(fromId: LocationId, toId: LocationId, abandoning = false): number {
     const from = this.getPlanetWithId(fromId);
-    if (!from) throw new Error('origin planet unknown');
+    if (!from) throw new Error('起源星球未知');
     const dist = this.getDist(fromId, toId);
 
     const speed = from.speed * this.getSpeedBuff(abandoning);

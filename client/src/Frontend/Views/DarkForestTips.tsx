@@ -46,11 +46,11 @@ export function DarkForestTips({
 
   return (
     <TipsContainer>
-      <HeaderText style={{ textDecoration: 'none' }}>{title ?? 'Dark Forest Tips'}</HeaderText>{' '}
+      <HeaderText style={{ textDecoration: 'none' }}>{title ?? '黑暗森林小贴士'}</HeaderText>{' '}
       <PrevNextContainer>
-        <TextButton onClick={() => incrementTipIndex(-1, true)}>previous</TextButton>
+        <TextButton onClick={() => incrementTipIndex(-1, true)}>上一条</TextButton>
         <Spacer width={16} />
-        <TextButton onClick={() => incrementTipIndex(1, true)}>next</TextButton>
+        <TextButton onClick={() => incrementTipIndex(1, true)}>下一条</TextButton>
       </PrevNextContainer>
       <br />
       <br />

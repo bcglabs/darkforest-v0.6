@@ -66,9 +66,9 @@ export default function LandingPage() {
         <MainContentContainer>
           <Header>
             <LinkContainer>
-              <Link to={links.email}>email</Link>
+              <Link to={links.email}>电子邮件</Link>
               <Spacer width={4} />
-              <Link to={links.blog}>blog</Link>
+              <Link to={links.blog}>博客</Link>
               <Spacer width={4} />
 
               <a className={'link-twitter'} href={links.twitter}>
@@ -84,7 +84,7 @@ export default function LandingPage() {
               </a>
 
               <Spacer width={4} />
-              <Link to={links.plugins}>plugins</Link>
+              <Link to={links.plugins}>插件</Link>
               <Spacer width={4} />
               <Link to={links.wiki}>wiki</Link>
             </LinkContainer>
@@ -99,28 +99,28 @@ export default function LandingPage() {
             <LandingPageRoundArt />
 
             <p>
-              <White>Dark Forest</White> <Text>zkSNARK space warfare</Text>
+              <White>黑暗森林</White> <Text>zkSNARK太空战</Text>
               <br />
               <Text>Round 5: </Text>
-              <White>The Junk Wars</White>
+              <White>垃圾战争</White>
             </p>
 
             <Spacer height={16} />
 
             <ButtonWrapper>
               <Btn size='large' onClick={() => history.push(`/lobby/${defaultAddress}`)}>
-                Create Lobby
+                创建大厅
               </Btn>
               <Btn size='large' onClick={() => history.push(`/play/${defaultAddress}`)}>
-                Enter Round 5
+                进入第 5 轮
               </Btn>
               <Btn size='large' onClick={() => history.push(`/events`)}>
-                Events
+                事件
               </Btn>
             </ButtonWrapper>
           </Header>
           <EmSpacer height={3} />
-          Ways to get Involved
+         参与方式
           <EmSpacer height={1} />
           <Involved>
             <InvolvedItem
@@ -402,23 +402,23 @@ function Hiring() {
   return (
     <HideOnMobile>
       <Modal contain={['top', 'left', 'right']} initialX={50} initialY={50}>
-        <Title slot='title'>Dark Forest is Hiring!</Title>
+        <Title slot='title'>黑暗森林正在招聘！</Title>
         <div style={{ maxWidth: '300px', textAlign: 'justify' }}>
-          We are looking for experienced full stack and solidity developers to join our team! If you
-          like what you see,{' '}
+          我们正在寻找经验丰富的全栈和 solidity 开发人员加入我们的团队！如果你
+          喜欢你所看到的,{' '}
           <Link to='https://docs.google.com/forms/d/e/1FAIpQLSdaWvjxX4TrDDLidPXtgk6UW3rC082rpvi3AIPkCPxAahg_rg/viewform?usp=sf_link'>
-            consider applying
+            考虑申请
           </Link>
-          . If you know someone who you think would be a great fit for our team,{' '}
+          .如果您认识某个您认为非常适合我们团队的人,{' '}
           <Link to='https://docs.google.com/forms/d/e/1FAIpQLScku_bQDbkPqpHrwBzOBfQ4SV6Nw6Tgxi6zWQL8Bb0olyBE3w/viewform?usp=sf_link'>
-            please refer them here
+            请在这里参考他们
           </Link>
           .
           <br />
           <br />
-          Learn more about the role{' '}
+          了解有关该角色的更多信息{' '}
           <Link to='https://ivanchub.notion.site/Dark-Forest-is-Hiring-ad1f0cbe816640fb9b4c663dacaaca04'>
-            here
+            这里
           </Link>
           .
         </div>

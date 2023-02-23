@@ -148,14 +148,14 @@ export class ContractsAPI extends EventEmitter {
     overrides?: providers.TransactionRequest
   ): Promise<void> {
     const address = this.ethConnection.getAddress();
-    if (!address) throw new Error("can't send a transaction, no signer");
+    if (!address) throw new Error("无法发送交易，没有签名者");
 
     const balance = await this.ethConnection.loadBalance(address);
 
     if (balance.lt(ContractsAPI.MIN_BALANCE)) {
       const notifsManager = NotificationManager.getInstance();
       notifsManager.balanceEmpty();
-      throw new Error('xDAI balance too low!');
+      throw new Error('xDAI 余额太低了！');
     }
 
     const gasFeeGwei = EthersBN.from(overrides?.gasPrice || '1000000000');
