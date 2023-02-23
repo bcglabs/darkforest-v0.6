@@ -310,7 +310,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         } else if (userInput === 'i') {
           setStep(TerminalPromptStep.IMPORT_ACCOUNT);
         } else {
-          terminal.current?.println('Unrecognized input. Please try again.');
+          terminal.current?.println('无法识别的输入。请再试一次。');
           await advanceStateFromCompatibilityPassed(terminal);
         }
       }
@@ -327,11 +327,11 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         terminal.current?.println(`${accounts[i].address}`);
       }
       terminal.current?.println(``);
-      terminal.current?.println(`Select an account:`, TerminalTextStyle.Text);
+      terminal.current?.println(`选择一个帐户：`, TerminalTextStyle.Text);
 
       const selection = +((await terminal.current?.getInput()) || '');
       if (isNaN(selection) || selection > accounts.length) {
-        terminal.current?.println('Unrecognized input. Please try again.');
+        terminal.current?.println('无法识别的输入。请再试一次。');
         await advanceStateFromDisplayAccounts(terminal);
       } else {
         const account = accounts[selection - 1];
@@ -340,7 +340,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
           setStep(TerminalPromptStep.ACCOUNT_SET);
         } catch (e) {
           terminal.current?.println(
-            'An unknown error occurred. please try again.',
+            '出现未知错误。请再试一次。',
             TerminalTextStyle.Red
           );
         }
@@ -359,29 +359,29 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         ethConnection?.setAccount(newSKey);
 
         terminal.current?.println(``);
-        terminal.current?.print(`Created new burner wallet with address `);
+        terminal.current?.print(`使用地址创建新的 Burner 钱包`);
         terminal.current?.printElement(<TextPreview text={newAddr} unFocusedWidth={'100px'} />);
         terminal.current?.println(``);
         terminal.current?.println('');
         terminal.current?.println(
-          'Note: Burner wallets are stored in local storage.',
+          'Noteburner 钱包存储在本地存储中。',
           TerminalTextStyle.Text
         );
-        terminal.current?.println('They are relatively insecure and you should avoid ');
-        terminal.current?.println('storing substantial funds in them.');
+        terminal.current?.println('他们相对不安全，你应该避免');
+        terminal.current?.println('在其中存储大量资金。');
         terminal.current?.println('');
-        terminal.current?.println('Also, clearing browser local storage/cache will render your');
+        terminal.current?.println('此外，清除浏览器本地存储/缓存将呈现您的');
         terminal.current?.println(
-          'burner wallets inaccessible, unless you export your private keys.'
+          'Burner 钱包无法访问，除非您导出您的私钥。'
         );
         terminal.current?.println('');
-        terminal.current?.println('Press any key to continue:', TerminalTextStyle.Text);
+        terminal.current?.println('按任意键继续：', TerminalTextStyle.Text);
 
         await terminal.current?.getInput();
         setStep(TerminalPromptStep.ACCOUNT_SET);
       } catch (e) {
         terminal.current?.println(
-          'An unknown error occurred. please try again.',
+          '出现未知错误。请再试一次。',
           TerminalTextStyle.Red
         );
       }
@@ -392,15 +392,15 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
   const advanceStateFromImportAccount = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
       terminal.current?.println(
-        'Enter the 0x-prefixed private key of the account you wish to import',
+        '输入您要导入的帐户的 0x 前缀私钥',
         TerminalTextStyle.Text
       );
       terminal.current?.println(
-        "NOTE: THIS WILL STORE THE PRIVATE KEY IN YOUR BROWSER'S LOCAL STORAGE",
+        "注意：这会将私钥存储在您浏览器的本地存储中",
         TerminalTextStyle.Text
       );
       terminal.current?.println(
-        'Local storage is relatively insecure. We recommend only importing accounts with zero-to-no funds.'
+        '本地存储相对不安全。我们建议只导入资金为零或零的账户。'
       );
       const newSKey = (await terminal.current?.getInput()) || '';
       try {
@@ -409,11 +409,11 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         addAccount(newSKey);
 
         ethConnection?.setAccount(newSKey);
-        terminal.current?.println(`Imported account with address ${newAddr}.`);
+        terminal.current?.println(`带地址的导入帐户 ${newAddr}.`);
         setStep(TerminalPromptStep.ACCOUNT_SET);
       } catch (e) {
         terminal.current?.println(
-          'An unknown error occurred. please try again.',
+          '出现未知错误。请再试一次。',
           TerminalTextStyle.Red
         );
       }
@@ -425,7 +425,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
       try {
         const playerAddress = ethConnection?.getAddress();
-        if (!playerAddress || !ethConnection) throw new Error('not logged in');
+        if (!playerAddress || !ethConnection) throw new Error('未登录');
 
         const whitelist = await ethConnection.loadContract<DarkForest>(
           contractAddress,
@@ -436,13 +436,13 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         const adminAddress = address(await whitelist.adminAddress());
 
         terminal.current?.println('');
-        terminal.current?.print('Checking if whitelisted... ');
+        terminal.current?.print('检查是否列入白名单...');
 
         // TODO(#2329): isWhitelisted should just check the contractOwner
         if (isWhitelisted || playerAddress === adminAddress) {
-          terminal.current?.println('Player whitelisted.');
+          terminal.current?.println('已列入白名单。');
           terminal.current?.println('');
-          terminal.current?.println(`Welcome, player ${playerAddress}.`);
+          terminal.current?.println(`欢迎，玩家 ${playerAddress}.`);
           // TODO: Provide own env variable for this feature
           if (!isProd) {
             // in development, automatically get some ether from faucet
@@ -456,9 +456,9 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
           setStep(TerminalPromptStep.ASKING_HAS_WHITELIST_KEY);
         }
       } catch (e) {
-        console.error(`error connecting to whitelist: ${e}`);
+        console.error(`连接到白名单时出错： ${e}`);
         terminal.current?.println(
-          'ERROR: Could not connect to whitelist contract. Please refresh and try again in a few minutes.',
+          '错误：无法连接到白名单合约。请刷新并在几分钟后重试。',
           TerminalTextStyle.Red
         );
         setStep(TerminalPromptStep.TERMINATED);
@@ -469,7 +469,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
 
   const advanceStateFromAskHasWhitelistKey = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
-      terminal.current?.print('Do you have a whitelist key?', TerminalTextStyle.Text);
+      terminal.current?.print('你有白名单密钥吗?', TerminalTextStyle.Text);
       terminal.current?.println(' (y/n)');
       const userInput = await terminal.current?.getInput();
       if (userInput === 'y') {
@@ -477,7 +477,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
       } else if (userInput === 'n') {
         setStep(TerminalPromptStep.ASKING_WAITLIST_EMAIL);
       } else {
-        terminal.current?.println('Unrecognized input. Please try again.');
+        terminal.current?.println('无法识别的输入。请再试一次。');
         await advanceStateFromAskHasWhitelistKey(terminal);
       }
     },
@@ -487,16 +487,16 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
   const advanceStateFromAskWhitelistKey = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
       const address = ethConnection?.getAddress();
-      if (!address) throw new Error('not logged in');
+      if (!address) throw new Error('未登录');
 
       terminal.current?.println(
-        'Please enter your invite key (XXXXXX-XXXXXX-XXXXXX-XXXXXX):',
+        '请输入您的邀请码（XXXXXX-XXXXXX-XXXXXX-XXXXXX）：',
         TerminalTextStyle.Sub
       );
 
       const key = (await terminal.current?.getInput()) || '';
 
-      terminal.current?.print('Processing key... (this may take up to 30s)');
+      terminal.current?.print('正在处理密钥...（这可能需要长达 30 秒）');
       terminal.current?.newline();
 
       if (!useZkWhitelist) {
@@ -511,29 +511,29 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
           registerConfirmationResponse = {
             canRetry: true,
             errorMessage:
-              'There was an error connecting to the whitelist server. Please try again later.',
+              '连接到白名单服务器时出错。请稍后再试。',
           };
         }
 
         if (!registerConfirmationResponse.txHash) {
           terminal.current?.println(
-            'ERROR: ' + registerConfirmationResponse.errorMessage,
+            '错误: ' + registerConfirmationResponse.errorMessage,
             TerminalTextStyle.Red
           );
           if (registerConfirmationResponse.canRetry) {
-            terminal.current?.println('Press any key to try again.');
+            terminal.current?.println('按任意键重试。');
             await terminal.current?.getInput();
             advanceStateFromAskWhitelistKey(terminal);
           } else {
             setStep(TerminalPromptStep.ASKING_WAITLIST_EMAIL);
           }
         } else {
-          terminal.current?.print('Successfully joined game. ', TerminalTextStyle.Green);
-          terminal.current?.print(`Welcome, player `);
+          terminal.current?.print('成功加入游戏。 ', TerminalTextStyle.Green);
+          terminal.current?.print(`欢迎，玩家`);
           terminal.current?.println(address, TerminalTextStyle.Text);
-          terminal.current?.print('Sent player $0.15 :) ', TerminalTextStyle.Blue);
+          terminal.current?.print('发送 $0.15 给玩家 :) ', TerminalTextStyle.Blue);
           terminal.current?.printLink(
-            '(View Transaction)',
+            '(查看交易)',
             () => {
               window.open(`${BLOCK_EXPLORER_URL}/${registerConfirmationResponse.txHash}`);
             },
@@ -543,7 +543,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
           setStep(TerminalPromptStep.ASKING_PLAYER_EMAIL);
         }
       } else {
-        if (!ethConnection) throw new Error('no eth connection');
+        if (!ethConnection) throw new Error('没有 eth 链接');
         const contractsAPI = await makeContractsAPI({ connection: ethConnection, contractAddress });
 
         const keyBigInt = bigIntFromKey(key);
@@ -556,12 +556,12 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
             [...snarkArgs[ZKArgIdx.DATA]]
           );
           await ukReceipt.wait();
-          terminal.current?.print('Successfully joined game. ', TerminalTextStyle.Green);
-          terminal.current?.print(`Welcome, player `);
+          terminal.current?.print('成功加入游戏。 ', TerminalTextStyle.Green);
+          terminal.current?.print(`欢迎，玩家 `);
           terminal.current?.println(address, TerminalTextStyle.Text);
-          terminal.current?.print('Sent player $0.15 :) ', TerminalTextStyle.Blue);
+          terminal.current?.print('发送 $0.15 给玩家 :) ', TerminalTextStyle.Blue);
           terminal.current?.printLink(
-            '(View Transaction)',
+            '(查看交易)',
             () => {
               window.open(`${BLOCK_EXPLORER_URL}/${ukReceipt.hash}`);
             },
@@ -574,16 +574,16 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
           if (error instanceof Error) {
             const invalidKey = error.message.includes('invalid key');
             if (invalidKey) {
-              terminal.current?.println(`ERROR: Key ${key} is not valid.`, TerminalTextStyle.Red);
+              terminal.current?.println(`错误：键 ${key} 无效.`, TerminalTextStyle.Red);
               setStep(TerminalPromptStep.ASKING_WAITLIST_EMAIL);
             } else {
-              terminal.current?.println(`ERROR: Something went wrong.`, TerminalTextStyle.Red);
-              terminal.current?.println('Press any key to try again.');
+              terminal.current?.println(`错误：出了点问题.`, TerminalTextStyle.Red);
+              terminal.current?.println('按任意键重试.');
               await terminal.current?.getInput();
               advanceStateFromAskWhitelistKey(terminal);
             }
           }
-          console.error('Error whitelisting.');
+          console.error('错误白名单.');
         }
       }
     },
@@ -593,26 +593,26 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
   const advanceStateFromAskWaitlistEmail = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
       terminal.current?.println(
-        'Enter your email address to sign up for the whitelist.',
+        '输入您的电子邮件地址以注册白名单.',
         TerminalTextStyle.Text
       );
       const email = (await terminal.current?.getInput()) || '';
-      terminal.current?.print('Response pending... ');
+      terminal.current?.print('响应待定...');
       const response = await submitInterestedEmail(email);
       if (response === EmailResponse.Success) {
-        terminal.current?.println('Email successfully recorded. ', TerminalTextStyle.Green);
+        terminal.current?.println('电子邮件已成功记录。', TerminalTextStyle.Green);
         terminal.current?.println(
-          'Keep an eye out for updates and invite keys in the next few weeks. Press ENTER to return to the homepage.',
+          '在接下来的几周内密切关注更新和邀请密钥。按 ENTER 返回主页。',
           TerminalTextStyle.Sub
         );
         setStep(TerminalPromptStep.TERMINATED);
         (await await terminal.current?.getInput()) || '';
         history.push('/');
       } else if (response === EmailResponse.Invalid) {
-        terminal.current?.println('Email invalid. Please try again.', TerminalTextStyle.Red);
+        terminal.current?.println('电子邮件无效。请再试一次。', TerminalTextStyle.Red);
       } else {
-        terminal.current?.print('ERROR: Server error. ', TerminalTextStyle.Red);
-        terminal.current?.print('Press ENTER to return to homepage.', TerminalTextStyle.Sub);
+        terminal.current?.print('错误：服务器错误。', TerminalTextStyle.Red);
+        terminal.current?.print('按 ENTER 返回主页.', TerminalTextStyle.Sub);
         (await await terminal.current?.getInput()) || '';
         setStep(TerminalPromptStep.TERMINATED);
         history.push('/');
@@ -624,22 +624,22 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
   const advanceStateFromAskPlayerEmail = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
       const address = ethConnection?.getAddress();
-      if (!address) throw new Error('not logged in');
+      if (!address) throw new Error('未登录');
 
-      terminal.current?.print('Enter your email address. ', TerminalTextStyle.Text);
-      terminal.current?.println("We'll use this email address to notify you if you win a prize.");
+      terminal.current?.print('输入你的电子邮箱地址。 ', TerminalTextStyle.Text);
+      terminal.current?.println("如果您中奖，我们将使用此电子邮件地址通知您。");
 
       const email = (await terminal.current?.getInput()) || '';
       const response = await submitPlayerEmail(await ethConnection?.signMessageObject({ email }));
 
       if (response === EmailResponse.Success) {
-        terminal.current?.println('Email successfully recorded.');
+        terminal.current?.println('电子邮件已成功记录。');
         setStep(TerminalPromptStep.FETCHING_ETH_DATA);
       } else if (response === EmailResponse.Invalid) {
-        terminal.current?.println('Email invalid.', TerminalTextStyle.Red);
+        terminal.current?.println('电子邮件无效.', TerminalTextStyle.Red);
         advanceStateFromAskPlayerEmail(terminal);
       } else {
-        terminal.current?.println('Error recording email.', TerminalTextStyle.Red);
+        terminal.current?.println('记录电子邮件时出错。', TerminalTextStyle.Red);
         setStep(TerminalPromptStep.FETCHING_ETH_DATA);
       }
     },
@@ -651,7 +651,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
       let newGameManager: GameManager;
 
       try {
-        if (!ethConnection) throw new Error('no eth connection');
+        if (!ethConnection) throw new Error('没有 eth 链接');
 
         newGameManager = await GameManager.create({
           connection: ethConnection,
@@ -664,7 +664,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         setStep(TerminalPromptStep.ERROR);
 
         terminal.current?.print(
-          'Network under heavy load. Please refresh the page, and check ',
+          '网络负载过重。请刷新页面，检查 ',
           TerminalTextStyle.Red
         );
 
@@ -690,7 +690,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
       window.ui = newGameUIManager;
 
       terminal.current?.newline();
-      terminal.current?.println('Connected to Dark Forest Contract');
+      terminal.current?.println('连接到黑暗森林合约');
       gameUIManagerRef.current = newGameUIManager;
 
       if (!newGameManager.hasJoinedGame()) {
@@ -699,13 +699,13 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         const browserHasData = !!newGameManager.getHomeCoords();
         if (!browserHasData) {
           terminal.current?.println(
-            'ERROR: Home coords not found on this browser.',
+            '错误：在此浏览器上找不到家庭坐标。',
             TerminalTextStyle.Red
           );
           setStep(TerminalPromptStep.ASK_ADD_ACCOUNT);
           return;
         }
-        terminal.current?.println('Validated Local Data...');
+        terminal.current?.println('验证本地数据...');
         setStep(TerminalPromptStep.ALL_CHECKS_PASS);
       }
     },
@@ -714,18 +714,18 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
 
   const advanceStateFromAskAddAccount = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
-      terminal.current?.println('Import account home coordinates? (y/n)', TerminalTextStyle.Text);
+      terminal.current?.println('导入帐户家坐标? (y/n)', TerminalTextStyle.Text);
       terminal.current?.println(
-        "If you're importing an account, make sure you know what you're doing."
+        "如果您要导入帐户，请确保您知道自己在做什么。"
       );
       const userInput = await terminal.current?.getInput();
       if (userInput === 'y') {
         setStep(TerminalPromptStep.ADD_ACCOUNT);
       } else if (userInput === 'n') {
-        terminal.current?.println('Try using a different account and reload.');
+        terminal.current?.println('尝试使用不同的帐户并重新加载。');
         setStep(TerminalPromptStep.TERMINATED);
       } else {
-        terminal.current?.println('Unrecognized input. Please try again.');
+        terminal.current?.println('无法识别的输入。请再试一次。');
         await advanceStateFromAskAddAccount(terminal);
       }
     },
@@ -748,21 +748,21 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
             Math.abs(x) > 2 ** 32 ||
             Math.abs(y) > 2 ** 32
           ) {
-            throw 'Invalid home coordinates.';
+            throw '家庭坐标无效.';
           }
           if (await gameUIManager.addAccount({ x, y })) {
-            terminal.current?.println('Successfully added account.');
-            terminal.current?.println('Initializing game...');
+            terminal.current?.println('成功添加账号.');
+            terminal.current?.println('正在初始化游戏...');
             setStep(TerminalPromptStep.ALL_CHECKS_PASS);
           } else {
-            throw 'Invalid home coordinates.';
+            throw '家庭坐标无效.';
           }
         } catch (e) {
-          terminal.current?.println(`ERROR: ${e}`, TerminalTextStyle.Red);
-          terminal.current?.println('Please try again.');
+          terminal.current?.println(`错误: ${e}`, TerminalTextStyle.Red);
+          terminal.current?.println('请再试一次。');
         }
       } else {
-        terminal.current?.println('ERROR: Game UI Manager not found. Terminating session.');
+        terminal.current?.println('错误：找不到游戏 UI 管理器。终止会话。');
         setStep(TerminalPromptStep.TERMINATED);
       }
     },
@@ -771,39 +771,39 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
 
   const advanceStateFromNoHomePlanet = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
-      terminal.current?.println('Welcome to DARK FOREST.');
+      terminal.current?.println('欢迎来到黑暗森林。');
 
       const gameUIManager = gameUIManagerRef.current;
       if (!gameUIManager) {
-        terminal.current?.println('ERROR: Game UI Manager not found. Terminating session.');
+        terminal.current?.println('错误：找不到游戏 UI 管理器。终止会话。');
         setStep(TerminalPromptStep.TERMINATED);
         return;
       }
 
       if (Date.now() / 1000 > gameUIManager.getEndTimeSeconds()) {
-        terminal.current?.println('ERROR: This game has ended. Terminating session.');
+        terminal.current?.println('错误：这个游戏已经结束。终止会话。');
         setStep(TerminalPromptStep.TERMINATED);
         return;
       }
 
       terminal.current?.newline();
 
-      terminal.current?.println('We collect a minimal set of statistics such as SNARK proving');
-      terminal.current?.println('times and average transaction times across browsers, to help ');
-      terminal.current?.println('us optimize performance and fix bugs. You can opt out of this');
-      terminal.current?.println('in the Settings pane.');
+      terminal.current?.println('我们收集了一组最小的统计数据，例如 SNARK 证明');
+      terminal.current?.println('跨浏览器的时间和平均交易时间，以帮助 ');
+      terminal.current?.println('我们优化性能并修复错误。你可以选择退出');
+      terminal.current?.println('在“设置”窗格中。');
       terminal.current?.println('');
 
       terminal.current?.newline();
 
-      terminal.current?.println('Press ENTER to find a home planet. This may take up to 120s.');
-      terminal.current?.println('This will consume a lot of CPU.');
+      terminal.current?.println('按 ENTER 键查找母行星。这可能需要长达 120 秒的时间。');
+      terminal.current?.println('这会消耗大量的CPU。');
 
       await terminal.current?.getInput();
 
       gameUIManager.getGameManager().on(GameManagerEvent.InitializedPlayer, () => {
         setTimeout(() => {
-          terminal.current?.println('Initializing game...');
+          terminal.current?.println('正在初始化游戏...');
           setStep(TerminalPromptStep.ALL_CHECKS_PASS);
         });
       });
@@ -812,18 +812,18 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         .joinGame(async (e) => {
           console.error(e);
 
-          terminal.current?.println('Error Joining Game:');
+          terminal.current?.println('加入游戏时出错：');
           terminal.current?.println('');
           terminal.current?.println(e.message, TerminalTextStyle.Red);
           terminal.current?.println('');
-          terminal.current?.println('Press Enter to Try Again:');
+          terminal.current?.println('按 Enter 重试：');
 
           await terminal.current?.getInput();
           return true;
         })
         .catch((error: Error) => {
           terminal.current?.println(
-            `[ERROR] An error occurred: ${error.toString().slice(0, 10000)}`,
+            `[错误] 发生错误： ${error.toString().slice(0, 10000)}`,
             TerminalTextStyle.Red
           );
         });
@@ -834,8 +834,8 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
   const advanceStateFromAllChecksPass = useCallback(
     async (terminal: React.MutableRefObject<TerminalHandle | undefined>) => {
       terminal.current?.println('');
-      terminal.current?.println('Press ENTER to begin');
-      terminal.current?.println("Press 's' then ENTER to begin in SAFE MODE - plugins disabled");
+      terminal.current?.println('按 ENTER 开始');
+      terminal.current?.println("按“s”然后按 ENTER 以安全模式开始 -禁用插件");
 
       const input = await terminal.current?.getInput();
 
@@ -848,13 +848,13 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
       setInitRenderState(InitRenderState.COMPLETE);
       terminal.current?.clear();
 
-      terminal.current?.println('Welcome to the Dark Forest.', TerminalTextStyle.Green);
+      terminal.current?.println('欢迎来到黑暗森林。', TerminalTextStyle.Green);
       terminal.current?.println('');
       terminal.current?.println(
-        "This is the Dark Forest interactive JavaScript terminal. Only use this if you know exactly what you're doing."
+        "这是 Dark Forest 交互式 JavaScript 终端。仅当您确切地知道自己在做什么时才使用它。"
       );
       terminal.current?.println('');
-      terminal.current?.println('Try running: df.getAccount()');
+      terminal.current?.println('尝试运行：df.getAccount()');
       terminal.current?.println('');
     },
     []
@@ -872,7 +872,7 @@ export function GameLandingPage({ match, location }: RouteComponentProps<{ contr
         }
       } catch (e) {
         res = e.message;
-        terminal.current?.println(`ERROR: ${res}`, TerminalTextStyle.Red);
+        terminal.current?.println(`错误: ${res}`, TerminalTextStyle.Red);
       }
       advanceStateFromComplete(terminal);
     },
