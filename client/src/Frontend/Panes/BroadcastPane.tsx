@@ -40,10 +40,10 @@ const BroadcastWrapper = styled.div`
 export function BroadcastPaneHelpContent() {
   return (
     <div>
-      Reveal this planet's location to all other players on-chain!
+      向链上的所有其他玩家揭示这个星球的位置！
       <Spacer height={8} />
-      Broadcasting can be a potent offensive tactic! Reveal a powerful enemy's location, and maybe
-      someone else will take care of them for you?
+      广播可能是一种有效的进攻策略！揭示强大敌人的位置，也许
+      别人会替你照顾他们吗？
     </div>
   );
 }
@@ -87,19 +87,19 @@ export function BroadcastPane({
   let revealBtn = undefined;
 
   if (isRevealed) {
-    revealBtn = <Btn disabled={true}>Broadcast Coordinates</Btn>;
+    revealBtn = <Btn disabled={true}>广播坐标</Btn>;
   } else if (planet?.transactions?.hasTransaction(isUnconfirmedRevealTx)) {
     revealBtn = (
       <Btn disabled={true}>
-        <LoadingSpinner initialText={'Broadcasting...'} />
+        <LoadingSpinner initialText={'广播...'} />
       </Btn>
     );
   } else if (!broadcastCooldownPassed) {
-    revealBtn = <Btn disabled={true}>Broadcast Coordinates</Btn>;
+    revealBtn = <Btn disabled={true}>广播坐标</Btn>;
   } else {
     revealBtn = (
       <Btn disabled={currentlyBroadcastingAnyPlanet} onClick={broadcast}>
-        Broadcast Coordinates
+        广播坐标
       </Btn>
     );
   }
@@ -108,25 +108,25 @@ export function BroadcastPane({
     <div>
       {currentlyBroadcastingAnyPlanet && (
         <p>
-          <Blue>INFO:</Blue> Revealing...
+          <Blue>信息:</Blue> 揭示...
         </p>
       )}
       {planet?.owner === account && (
         <p>
-          <Blue>INFO:</Blue> You own this planet! Revealing its location is a dangerous flex.
+          <Blue>信息:</Blue> 你拥有这个星球！透露其位置是一种危险的做法。
         </p>
       )}
       {isRevealed && (
         <p>
-          <Blue>INFO:</Blue> This planet's location is already revealed, and can't be revealed
-          again!
+          <Blue>信息:</Blue> 这个星球的位置已经被揭露，不能被揭露
+          再次！
         </p>
       )}
       {!broadcastCooldownPassed && (
         <p>
-          <Blue>INFO:</Blue> You must wait{' '}
+          <Blue>信息:</Blue> 你必须等着{' '}
           <TimeUntil timestamp={uiManager.getNextBroadcastAvailableTimestamp()} ifPassed={'now!'} />{' '}
-          to reveal another planet.
+          揭示另一个星球。
         </p>
       )}
     </div>
@@ -136,8 +136,8 @@ export function BroadcastPane({
     return (
       <BroadcastWrapper>
         <div>
-          You can broadcast a planet to publically reveal its location on the map. You can only
-          broadcast a planet's location once every{' '}
+          您可以广播一颗行星以在地图上公开显示它的位置。你只能
+          广播一次行星的位置{' '}
           <White>
             {formatDuration(uiManager.contractConstants.LOCATION_REVEAL_COOLDOWN * 1000)}
           </White>
@@ -145,7 +145,7 @@ export function BroadcastPane({
         </div>
         <div className='message'>{warningsSection}</div>
         <div className='row'>
-          <span>Coordinates</span>
+          <span>坐标</span>
           <span>{`(${getLoc().x}, ${getLoc().y})`}</span>
         </div>
         <Spacer height={8} />
@@ -155,7 +155,7 @@ export function BroadcastPane({
   } else {
     return (
       <CenterBackgroundSubtext width='100%' height='75px'>
-        Select a Planet
+        选择一个星球
       </CenterBackgroundSubtext>
     );
   }
