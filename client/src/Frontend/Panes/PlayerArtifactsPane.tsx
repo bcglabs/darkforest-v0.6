@@ -35,7 +35,7 @@ export function PlayerArtifactsPane({
   return (
     <ModalPane
       id={ModalName.YourArtifacts}
-      title={'Your Inventory'}
+      title={'您的库存'}
       visible={visible}
       onClose={onClose}
       helpContent={HelpContent}

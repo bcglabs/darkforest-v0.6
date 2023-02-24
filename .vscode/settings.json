@@ -34,5 +34,6 @@
   // Screw redhat and their telemetry
   "redhat.telemetry.enabled": false,
   // Always use single quotes in yml files
-  "yaml.format.singleQuote": true
+  "yaml.format.singleQuote": true,
+  "commentTranslate.source": "Google"
 }

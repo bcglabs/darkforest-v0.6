@@ -70,7 +70,7 @@ export function TwitterVerifyPane({ visible, onClose }: { visible: boolean; onCl
   return (
     <ModalPane
       id={ModalName.TwitterVerify}
-      title='Connect/Disconnect Twitter'
+      title='连接/断开推特'
       visible={visible}
       onClose={onClose}
       initialPosition={{ y: 100, x: window.innerWidth / 2 - 300 }}

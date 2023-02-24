@@ -26,67 +26,61 @@ export function HelpPane({ visible, onClose }: { visible: boolean; onClose: () =
   const captureZonePointValues = uiManager.getCaptureZonePointValues();
 
   return (
-    <ModalPane id={ModalName.Help} title='Help' visible={visible} onClose={onClose}>
+    <ModalPane id={ModalName.Help} title='帮助' visible={visible} onClose={onClose}>
       <HelpContent>
         {uiManager.isRoundOver() && (
           <Section>
-            <SectionHeader>Round 5 Complete</SectionHeader>
-            Dark Forest v0.6 Round 5 is now complete! Scores are being compiled and winners will be
-            announced shortly. Also, Artifacts will no longer be mintable. Thanks for playing!
+            <SectionHeader>第 5 轮完成</SectionHeader>
+            黑暗森林 v0.6 第 5 轮现已完成！分数正在编制中，获奖者将
+            不久宣布。此外，神器将不再是可铸造的。感谢参与！
           </Section>
         )}
 
         <Section>
-          <SectionHeader>Firstly, Some Links:</SectionHeader>
-          <Link to='https://blog.zkga.me'>Official Info and Announcements</Link>
+          <SectionHeader>首先，一些链接:</SectionHeader>
+          <Link to='https://blog.zkga.me'>官方信息和公告</Link>
           <br />
-          <Link to='https://twitter.com/darkforest_eth'>Official Twitter</Link>
+          <Link to='https://twitter.com/darkforest_eth'>官方 Twitter</Link>
           <br />
-          <Link to='https://discord.gg/2u2TN6v8r6'>Official Discord Server</Link>
+          <Link to='https://discord.gg/2u2TN6v8r6'>官方 Discord 服务器</Link>
           <br />
-          <Link to='https://dfwiki.net/'>Community-Run Wiki</Link>
+          <Link to='https://dfwiki.net/'>社区经营 Wiki</Link>
           <br />
           <br />
-          Secondly... welcome to
+          其次...欢迎来到
         </Section>
 
         <Section>
-          <SectionHeader>Dark Forest v0.6 R5: The Junk Wars</SectionHeader>
-          Dark Forest is a vast universe, obfuscated by zero-knowledge cryptography. Your{' '}
-          <White>explorer</White> (bottom left) explores the universe, searching for{' '}
-          <White>Planets</White> and other players.
+          <SectionHeader>黑暗森林 v0.6 R5：垃圾战争</SectionHeader>
+          黑暗森林是一个广阔的宇宙，被零知识密码学所迷惑。你的 <White>探险家</White>{' '}
+          （左下）探索宇宙，寻找 <White>行星</White> 和其他玩家。
           <EmSpacer height={1} />
-          All planets produce <White>Energy</White>. You can click-drag to move energy from planets
-          you own to new planets to conquer them.
+          所有行星都生产<White>活力</White>. 您可以单击并拖动以从行星上移动能量
+          你拥有新的行星来征服它们。
           <EmSpacer height={1} />
-          Also scattered through the universe are <White>Asteroid Fields</White>, which produce{' '}
-          <White>Silver</White>. Silver can be sent to planets and can be spent on{' '}
-          <White>Upgrades</White>.
-          <EmSpacer height={1} /> Some planets contain <White>Artifacts</White> - ERC721 tokens that
-          can be traded with other players. Artifacts can be harvested and deposited onto planets,
-          buffing their stats.
+          散布在宇宙中的还有 <White>小行星带</White>, 产生 <White>银</White>.
+          白银可以传送到行星，也可以花在 <White>升级</White>.
+          <EmSpacer height={1} /> 有些行星包含 <White>神器</White> - ERC721 表示
+          可以与其他玩家交易。可以收获人工制品并将其存放在行星上， 抛光他们的统计数据。
         </Section>
 
         <Section>
-          <SectionHeader>Prizes and Scoring</SectionHeader>A snapshot of scores will be taken on{' '}
-          <White>February 28, 2022</White> at 9PM Pacific Time. At that time, the top 63
-          highest-scoring players will be awarded prizes from a pool 63 prize planets. You can see
-          the current rankings by scrolling down on the landing page of the game.
+          <SectionHeader>奖品及计分</SectionHeader>分数的快照将被拍摄{' '}
+          <White>2022 年 2 月 28 日</White> 太平洋时间晚上 9 点。当时63强 得分最高的玩家将从 63
+          个奖品星球中获得奖品。你可以看到 通过在游戏的登录页面上向下滚动来查看当前排名。
           <EmSpacer height={1} />
-          Scoring this round is made up of three parts: finding artifacts using you Gear ship,
-          withdrawing silver from Spacetime Rips, and invading and capturing planets inside of
-          Capture Zones. For more information about capture zones, hover over the 'Capture Zones'
-          sections at the top of the screen.
+          这一轮的得分由三部分组成：使用你的装备船寻找神器， 从 Spacetime Rips
+          中提取白银，并入侵并捕获其中的行星 捕获区。有关捕获区的更多信息，请将鼠标悬停在“捕获区”上
+          屏幕顶部的部分。
           <EmSpacer height={1} />
-          The values for each scoring type are provided below:
+          下面提供了每种评分类型的值：
         </Section>
 
         <Section>
-          <SectionHeader>Scoring values</SectionHeader>
-          Each single <Gold>silver</Gold> you withdraw increases your score by{' '}
-          {silverScoreValue / 100}.
+          <SectionHeader>评分值</SectionHeader>
+          每一个单 <Gold>银</Gold> 你退出增加你的分数 {silverScoreValue / 100}.
           <EmSpacer height={1} />
-          Discovering an artifact increases your score based on its rarity:
+          发现神器会根据其稀有性增加您的分数：
           <br />
           <ArtifactRarityLabel rarity={ArtifactRarity.Common} />:{' '}
           {artifactPointValues[ArtifactRarity.Common]}
@@ -103,27 +97,27 @@ export function HelpPane({ visible, onClose }: { visible: boolean; onClose: () =
           <ArtifactRarityLabel rarity={ArtifactRarity.Mythic} />:{' '}
           {artifactPointValues[ArtifactRarity.Mythic]}
           <EmSpacer height={1} />
-          Capturing an invaded planet increases your score based on its level:
+          占领一颗被入侵的行星会根据其等级增加你的分数：
           <br />
-          Level {PlanetLevel.ZERO}: {captureZonePointValues[PlanetLevel.ZERO]}
+          等级 {PlanetLevel.ZERO}: {captureZonePointValues[PlanetLevel.ZERO]}
           <br />
-          Level {PlanetLevel.ONE}: {captureZonePointValues[PlanetLevel.ONE]}
+          等级 {PlanetLevel.ONE}: {captureZonePointValues[PlanetLevel.ONE]}
           <br />
-          Level {PlanetLevel.TWO}: {captureZonePointValues[PlanetLevel.TWO]}
+          等级 {PlanetLevel.TWO}: {captureZonePointValues[PlanetLevel.TWO]}
           <br />
-          Level {PlanetLevel.THREE}: {captureZonePointValues[PlanetLevel.THREE]}
+          等级 {PlanetLevel.THREE}: {captureZonePointValues[PlanetLevel.THREE]}
           <br />
-          Level {PlanetLevel.FOUR}: {captureZonePointValues[PlanetLevel.FOUR]}
+          等级 {PlanetLevel.FOUR}: {captureZonePointValues[PlanetLevel.FOUR]}
           <br />
-          Level {PlanetLevel.FIVE}: {captureZonePointValues[PlanetLevel.FIVE]}
+          等级 {PlanetLevel.FIVE}: {captureZonePointValues[PlanetLevel.FIVE]}
           <br />
-          Level {PlanetLevel.SIX}: {captureZonePointValues[PlanetLevel.SIX]}
+          等级 {PlanetLevel.SIX}: {captureZonePointValues[PlanetLevel.SIX]}
           <br />
-          Level {PlanetLevel.SEVEN}: {captureZonePointValues[PlanetLevel.SEVEN]}
+          等级 {PlanetLevel.SEVEN}: {captureZonePointValues[PlanetLevel.SEVEN]}
           <br />
-          Level {PlanetLevel.EIGHT}: {captureZonePointValues[PlanetLevel.EIGHT]}
+          等级 {PlanetLevel.EIGHT}: {captureZonePointValues[PlanetLevel.EIGHT]}
           <br />
-          Level {PlanetLevel.NINE}: {captureZonePointValues[PlanetLevel.NINE]}
+          等级 {PlanetLevel.NINE}: {captureZonePointValues[PlanetLevel.NINE]}
         </Section>
       </HelpContent>
     </ModalPane>

@@ -40,7 +40,7 @@ export function SidebarPane({
         <ModalToggleButton
           modal={ModalName.Settings}
           hook={settingsHook}
-          text={sidebarHovered ? 'Settings' : undefined}
+          text={sidebarHovered ? '设置' : undefined}
           size='stretch'
           shortcutKey={TOGGLE_SETTINGS_PANE}
           shortcutText={sidebarHovered ? TOGGLE_SETTINGS_PANE : undefined}
@@ -49,7 +49,7 @@ export function SidebarPane({
         <ModalToggleButton
           modal={ModalName.Help}
           hook={helpHook}
-          text={sidebarHovered ? 'Help' : undefined}
+          text={sidebarHovered ? '帮助' : undefined}
           size='stretch'
           shortcutKey={TOGGLE_HELP_PANE}
           shortcutText={sidebarHovered ? TOGGLE_HELP_PANE : undefined}
@@ -58,7 +58,7 @@ export function SidebarPane({
         <ModalToggleButton
           modal={ModalName.Plugins}
           hook={pluginsHook}
-          text={sidebarHovered ? 'Plugins' : undefined}
+          text={sidebarHovered ? '插件' : undefined}
           size='stretch'
           shortcutKey={TOGGLE_PLUGINS_PANE}
           shortcutText={sidebarHovered ? TOGGLE_PLUGINS_PANE : undefined}
@@ -67,7 +67,7 @@ export function SidebarPane({
         <ModalToggleButton
           modal={ModalName.YourArtifacts}
           hook={yourArtifactsHook}
-          text={sidebarHovered ? 'Your Inventory' : undefined}
+          text={sidebarHovered ? '您的库存' : undefined}
           size='stretch'
           shortcutKey={TOGGLE_YOUR_ARTIFACTS_PANE}
           shortcutText={sidebarHovered ? TOGGLE_YOUR_ARTIFACTS_PANE : undefined}
@@ -76,7 +76,7 @@ export function SidebarPane({
         <ModalToggleButton
           modal={ModalName.PlanetDex}
           hook={planetdexHook}
-          text={sidebarHovered ? 'Your Planets' : undefined}
+          text={sidebarHovered ? '你的星球' : undefined}
           size='stretch'
           shortcutKey={TOGGLE_YOUR_PLANETS_DEX_PANE}
           shortcutText={sidebarHovered ? TOGGLE_YOUR_PLANETS_DEX_PANE : undefined}
@@ -85,7 +85,7 @@ export function SidebarPane({
         <ModalToggleButton
           modal={ModalName.TransactionLog}
           hook={transactionLogHook}
-          text={sidebarHovered ? 'Transaction Log' : undefined}
+          text={sidebarHovered ? '交易记录' : undefined}
           size='stretch'
           shortcutKey={TOGGLE_TRANSACTIONS_PANE}
           shortcutText={sidebarHovered ? TOGGLE_TRANSACTIONS_PANE : undefined}

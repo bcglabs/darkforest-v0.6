@@ -215,7 +215,7 @@ export default function OnboardingPane({
   return (
     <ModalPane
       id={ModalName.Onboarding}
-      title={'Welcome to Dark Forest'}
+      title={'欢迎来到黑暗森林'}
       hideClose
       visible={visible}
       onClose={onClose}

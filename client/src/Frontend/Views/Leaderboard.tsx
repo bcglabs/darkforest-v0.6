@@ -88,9 +88,9 @@ function LeaderboardTable({ rows }: { rows: Array<[string, number | undefined]> 
       <Table
         alignments={['r', 'l', 'r']}
         headers={[
-          <Cell key='place'>place</Cell>,
-          <Cell key='player'>player</Cell>,
-          <Cell key='score'>score</Cell>,
+          <Cell key='place'>地方</Cell>,
+          <Cell key='player'>播放器</Cell>,
+          <Cell key='score'>分数</Cell>,
         ]}
         rows={rows}
         columns={[
@@ -174,17 +174,17 @@ function LeaderboardBody({ leaderboard }: { leaderboard: Leaderboard }) {
         <StatsTable>
           <tbody>
             <tr>
-              <td>round complete</td>
+              <td>一轮完成</td>
               <td>
                 <CountDown />
               </td>
             </tr>
             <tr>
-              <td>players</td>
+              <td>球员</td>
               <td>{leaderboard.entries.length}</td>
             </tr>
             <tr>
-              <td>ranked players</td>
+              <td>排名球员</td>
               <td>{rankedPlayers.length}</td>
             </tr>
           </tbody>

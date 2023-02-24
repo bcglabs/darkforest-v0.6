@@ -235,7 +235,7 @@ export function PlanetDexPane({ visible, onClose }: { visible: boolean; onClose:
       visible={visible}
       onClose={onClose}
       id={ModalName.PlanetDex}
-      title='Planet Dex'
+      title='行星敏捷'
       helpContent={HelpContent}
     >
       {content}
