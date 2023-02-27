@@ -1,6 +1,7 @@
 node_modules/*
 build/*
 .idea/*
+.vscode/*
 
 # built files
 native-mimc/mimc_function
