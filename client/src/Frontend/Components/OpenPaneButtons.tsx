@@ -63,7 +63,7 @@ export function OpenHatPaneButton({
   return (
     <OpenPaneButton
       modal={modal}
-      title='Hat'
+      title='现有'
       shortcut={TOGGLE_HAT_PANE}
       element={() => <HatPane modal={modal} initialPlanetId={planetId} />}
     />
@@ -80,7 +80,7 @@ export function OpenBroadcastPaneButton({
   return (
     <OpenPaneButton
       modal={modal}
-      title='Broadcast'
+      title='播送'
       shortcut={TOGGLE_BROADCAST_PANE}
       element={() => <BroadcastPane modal={modal} initialPlanetId={planetId} />}
       helpContent={BroadcastPaneHelpContent()}
@@ -98,7 +98,7 @@ export function OpenUpgradeDetailsPaneButton({
   return (
     <OpenPaneButton
       modal={modal}
-      title='Upgrade'
+      title='升级'
       shortcut={TOGGLE_UPGRADES_PANE}
       element={() => <UpgradeDetailsPane modal={modal} initialPlanetId={planetId} />}
       helpContent={UpgradeDetailsPaneHelpContent()}
@@ -115,7 +115,7 @@ export function OpenManagePlanetArtifactsButton({
   return (
     <OpenPaneButton
       modal={modal}
-      title='Inventory'
+      title='存货'
       shortcut={TOGGLE_PLANET_ARTIFACTS_PANE}
       element={() => <ManagePlanetArtifactsPane modal={modal} initialPlanetId={planetId} />}
       helpContent={ManagePlanetArtifactsHelpContent()}
@@ -133,7 +133,7 @@ export function OpenPlanetInfoButton({
   return (
     <OpenPaneButton
       modal={modal}
-      title='Info'
+      title='信息'
       shortcut={TOGGLE_PLANET_INFO_PANE}
       element={() => <PlanetInfoPane initialPlanetId={planetId} />}
       helpContent={PlanetInfoHelpContent()}

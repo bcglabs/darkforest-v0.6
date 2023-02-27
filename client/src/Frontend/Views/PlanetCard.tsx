@@ -308,7 +308,7 @@ export function PlanetCard({
         {standalone && (
           <>
             <SpreadApart>
-              <Sub>owner</Sub>
+              <Sub>所有者</Sub>
               <Sub>
                 <AccountLabel ethAddress={planet.owner} includeAddressIfHasTwitter={true} />
               </Sub>

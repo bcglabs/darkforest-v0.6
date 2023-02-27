@@ -193,7 +193,7 @@ export const PlanetLevel = ({ planet }: { planet: Planet | undefined }) => {
   if (!planet) return <></>;
   return (
     <>
-      <Sub>{'Level '}</Sub>
+      <Sub>{'等级 '}</Sub>
       {planet.planetLevel}
     </>
   );
@@ -203,7 +203,7 @@ export const PlanetRank = ({ planet }: { planet: Planet | undefined }) => {
   if (!planet) return <></>;
   return (
     <>
-      <Sub>{'Rank '}</Sub>
+      <Sub>{'排名 '}</Sub>
       {getPlanetRank(planet)}
     </>
   );
