@@ -103,7 +103,7 @@ export function ArtifactsList({
       <CenterBackgroundSubtext width={'100%'} height='100px'>
         {noArtifactsMessage ?? (
           <>
-            You Don't Have <br /> Any Artifacts
+            你没有 <br /> 任何文物
           </>
         )}
       </CenterBackgroundSubtext>
@@ -184,7 +184,7 @@ export function ShipList({
       <CenterBackgroundSubtext width={'100%'} height='100px'>
         {noShipsMessage ?? (
           <>
-            You Don't Have <br /> Any Ships
+            你没有 <br /> 任何船只
           </>
         )}
       </CenterBackgroundSubtext>
@@ -222,7 +222,7 @@ export function AllArtifacts({
     <ArtifactsBody>
       <TabbedView
         style={{ height: '100%' }}
-        tabTitles={['artifacts', 'ships']}
+        tabTitles={['文物', '船舶']}
         tabContents={(i) => {
           if (i === 0) {
             return (

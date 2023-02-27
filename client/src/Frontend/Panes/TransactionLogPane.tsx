@@ -394,15 +394,10 @@ export function TransactionLogPane({
   const transactions = useTransactionLog();
 
   return (
-    <ModalPane
-      visible={visible}
-      onClose={onClose}
-      id={ModalName.TransactionLog}
-      title='Transaction Log'
-    >
+    <ModalPane visible={visible} onClose={onClose} id={ModalName.TransactionLog} title='交易记录'>
       {isEmpty(transactions.value) ? (
         <CenterBackgroundSubtext width={RECOMMENDED_MODAL_WIDTH} height='100px'>
-          No transactions to be shown
+          没有交易显示
         </CenterBackgroundSubtext>
       ) : (
         <QueuedTransactionsTable transactions={transactions} />

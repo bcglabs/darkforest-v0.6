@@ -44,7 +44,7 @@ function Cores() {
   const uiManager = useUIManager();
 
   const values = ['1', '2', '4', '8', '16', '32'];
-  const labels = values.map((value) => value + ' core' + (value === '1' ? '' : 's'));
+  const labels = values.map((value) => value + ' 核' + (value === '1' ? '' : 's'));
 
   return (
     <MultiSelectSetting
@@ -70,7 +70,7 @@ const miningSelectValues = [
   MiningPatternType.TowardsCenter.toString(),
   MiningPatternType.TowardsCenterV2.toString(),
 ];
-const miningSelectLabels = ['Spiral', 'SwissCheese', 'TowardsCenter', 'TowardsCenterV2'];
+const miningSelectLabels = ['螺旋', '瑞士芝士', '朝向中心', '朝向中心V2'];
 
 function HashesPerSec() {
   const uiManager = useUIManager();
@@ -173,7 +173,7 @@ export function ExplorePane() {
           shortcutKey={TOGGLE_TARGETTING}
           shortcutText={TOGGLE_TARGETTING}
         >
-          {targetting ? 'Moving...' : 'Move'}
+          {targetting ? '移动...' : '移动'}
           <EmSpacer width={1} />
           <Icon type={IconType.Target} />
         </MaybeShortcutButton>
@@ -185,9 +185,9 @@ export function ExplorePane() {
           onClick={doExplore}
           onShortcutPressed={doExplore}
           shortcutKey={TOGGLE_EXPLORE}
-          shortcutText={'space'}
+          shortcutText={'空格'}
         >
-          {mining ? 'Pause' : 'Explore!'} <EmSpacer width={1} />{' '}
+          {mining ? '暂停' : '探索!'} <EmSpacer width={1} />{' '}
           {mining ? <Icon type={IconType.Pause} /> : <Icon type={IconType.Play} />}
         </MaybeShortcutButton>
       </TooltipTrigger>

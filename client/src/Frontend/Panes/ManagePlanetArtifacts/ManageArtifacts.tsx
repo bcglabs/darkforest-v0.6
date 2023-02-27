@@ -43,12 +43,12 @@ export function ManageArtifactsPane({
         modal={modal}
         noArtifactsMessage={
           <>
-            No Artifacts <br /> On This Planet
+            无人工制品 <br /> 在这个星球上
           </>
         }
         noShipsMessage={
           <>
-            No Ships <br /> On This Planet
+            没有船 <br /> 在这个星球上
           </>
         }
       />

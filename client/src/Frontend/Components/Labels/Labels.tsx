@@ -42,7 +42,7 @@ export function AccountLabel({
   }
 
   if (ethAddress === EMPTY_ADDRESS) {
-    return <>nobody</>;
+    return <>没有人</>;
   }
 
   return (

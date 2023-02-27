@@ -63,14 +63,14 @@ import { html, render } from 'https://unpkg.com/htm/preact/standalone.module.js'
 // Line 78 - 350: Blank Renderer
 // Line 350 - 651: Circle Renderer
 // Line 626 - End: Plugin
- 
+
 
 
 
 // Line 78 - 376
 // "Blank" renderer class definitions
 // When passing in these renderers into the Dark Forest API, the result would be the same as disabling that type of renderer.
- 
+
 class PlanetRenderer implements PlanetRendererType {
   rendererType = RendererType.Planet;
   queuePlanetBody(planet: Planet, centerW: WorldCoords, radiusW: number): void {}
@@ -345,7 +345,7 @@ class CaptureZoneRenderer implements CaptureZoneRendererType{
 
     queueCaptureZones(): void {}
 
-    flush(): void {} 
+    flush(): void {}
 }
 
 // line 350 - 351
@@ -355,7 +355,7 @@ class CaptureZoneRenderer implements CaptureZoneRendererType{
 
 // Program Definition
 // A program is what we use to organizie the attributes and shaders of WebGl Programs
- 
+
 const u = {
   matrix: 'u_matrix', // matrix to convert from world coords to clipspace
 };
@@ -426,9 +426,9 @@ const GENERIC_PLANET_PROGRAM_DEFINITION = {
           in float a_eps;
           in vec2 a_planetInfo;
           in vec4 a_planetResources;
-        
+
           uniform mat4 u_matrix;
-        
+
           out float v_planetLevel;
           out vec4 v_color;
           out vec2 v_rectPos;
@@ -437,10 +437,10 @@ const GENERIC_PLANET_PROGRAM_DEFINITION = {
           out float v_eps;
           out float energy;
           out float energy_cap;
-        
+
           void main() {
             gl_Position = u_matrix * vec4(a_position.xy, 0.0, 1.0);
-        
+
             v_rectPos = a_position.zw;
             v_color = a_color;
             v_angle = a_props.x;
@@ -454,10 +454,10 @@ const GENERIC_PLANET_PROGRAM_DEFINITION = {
 
   fragmentShader: glsl`
         #define PI 3.1415926535
-        
+
         precision highp float;
         out vec4 outColor;
-        
+
         in vec4 v_color;
         in vec2 v_rectPos;
         in float v_angle;
@@ -466,39 +466,39 @@ const GENERIC_PLANET_PROGRAM_DEFINITION = {
         in float v_planetLevel;
         in float energy;
         in float energy_cap;
-        
+
         void main() {
           vec4 color = v_color;
           float dist = length(v_rectPos);
-        
+
           if (dist > 1.0) discard; // if it's outside the circle
-        
+
           // anti-aliasing if barely in the circle
           float ratio = (1.0 - dist) / v_eps;
           if (ratio < 1.) {
             color.a *= ratio;
           }
-        
-        
+
+
           /* get angle for both angle + dash checks */
           float angle = atan(v_rectPos.y, v_rectPos.x);
-        
+
           // add 5pi/2 to translate it to [-PI/2, 3PI / 2]
           float check = angle + (5.0 * PI / 2.0);
           check -= (check > 2.0 * PI ? 2.0 * PI : 0.0);
           float pct = check / (2.0 * PI);
-        
+
           /* do angle check */
-        
+
           if (v_angle != 1.0 && pct > v_angle) discard;
-        
+
           /* do dash check */
           bool isDash = v_dash > 0.0;
           float interval = angle / v_dash;
           float modulo = interval - 2.0 * floor(interval / 2.0);
           bool isGap = modulo > 1.0;
           if (isDash && isGap) discard;
-        
+
           /* now draw it */
           outColor = vec4(1,1.0/energy_cap*energy,0,1);
         }
@@ -520,7 +520,7 @@ class CirclePlanetRenderer extends GenericRenderer<
 
   constructor(glManager: GameGLManager, n: number) {
     super(glManager, GENERIC_PLANET_PROGRAM_DEFINITION);
-    //@ts-ignore 
+    //@ts-ignore
     this.verts = 0; //found in generic renderer
 
     this.manager = glManager;
@@ -548,7 +548,7 @@ class CirclePlanetRenderer extends GenericRenderer<
       planetInfo: planetInfoA,
       planetUpgrades: planetUpgradesA,
       planetResources: planetResourcesA,
-    //@ts-ignore 
+    //@ts-ignore
     } = this.attribManagers;
     const { x, y } = center;
     // 1 on either side for antialiasing
@@ -575,7 +575,7 @@ class CirclePlanetRenderer extends GenericRenderer<
     const eps = 1 / radius;
     const resources = [planet.energy, planet.energyCap, planet.silver, planet.silverCap];
     for (let i = 0; i < 6; i++) {
-      //@ts-ignore  
+      //@ts-ignore
       colorA.setVertex(color, this.verts + i);
       //@ts-ignore
       propsA.setVertex([angle, dash], this.verts + i);
@@ -644,7 +644,7 @@ export default class EmbeddedRendererShowcase implements DFPlugin {
 
   constructor() {
     let glMan = ui.getGlManager();
-    this.circleSelector = 'Planet';
+    this.circleSelector = '行星';
     if (glMan) {
       this.CirclePlanetLibrary = {
         Planet: new CirclePlanetRenderer(glMan, RendererType.Planet),
@@ -813,7 +813,7 @@ export default class EmbeddedRendererShowcase implements DFPlugin {
   }
 
   destroy(): void {
-    currentPlanet = 'Planet';
+    currentPlanet = '行星';
     for (let key in rendererLibrary) {
       ui.disableCustomRenderer(rendererLibrary[key]);
     }
@@ -877,7 +877,7 @@ for (let key in rendererLibrary) {
   disabled[key] = false;
 }
 
-let currentPlanet: string = 'Planet';
+let currentPlanet: string = '行星';
 
 function disable() {
   const btn = document.getElementById('RegPlanetBtn');

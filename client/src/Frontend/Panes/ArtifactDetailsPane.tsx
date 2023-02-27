@@ -142,9 +142,9 @@ export function ArtifactDetailsHelpContent() {
   return (
     <div>
       <p>
-        In this pane, you can see specific information about a particular artifact. You can also
-        initiate a conversation with the artifact! Try talking to your artifacts. Make some new
-        friends (^:
+       在此窗格中，您可以查看有关特定工件的特定信息。你也可以
+        发起与神器的对话！尝试与您的人工制品交谈。做点新的
+        朋友们(^:
       </p>
     </div>
   );
@@ -261,7 +261,7 @@ export function ArtifactDetailsBody({
         <Spacer height={8} />
 
         <div className='row'>
-          <span>Located On</span>
+          <span>位于</span>
           {planetArtifactName(artifact) ? (
             <span className='link' onClick={planetClicked}>
               {planetArtifactName(artifact)}
@@ -274,15 +274,15 @@ export function ArtifactDetailsBody({
         {!isSpaceShip(artifact.artifactType) && (
           <>
             <div className='row'>
-              <span>Minted At</span>
+              <span>铸造于</span>
               <span>{dateMintedAt(artifact)}</span>
             </div>
             <div className='row'>
-              <span>Discovered On</span>
+              <span>发现于</span>
               <span>{getPlanetNameHash(artifact.planetDiscoveredOn)}</span>
             </div>
             <div className='row'>
-              <span>Discovered By</span>
+              <span>发现者</span>
               <span>{discoverer()}</span>
             </div>
           </>
@@ -290,7 +290,7 @@ export function ArtifactDetailsBody({
 
         {artifact.controller === EMPTY_ADDRESS && (
           <div className='row'>
-            <span>Owner</span>
+            <span>所有者</span>
             <span>{owner()}</span>
           </div>
         )}
@@ -301,7 +301,7 @@ export function ArtifactDetailsBody({
 
         {artifact.controller !== EMPTY_ADDRESS && (
           <div className='row'>
-            <span>Controller</span>
+            <span>控制器</span>
             <span>
               <AccountLabel ethAddress={artifact.controller} />
             </span>
@@ -309,7 +309,7 @@ export function ArtifactDetailsBody({
         )}
         {readyInStr && (
           <div className='row'>
-            <span>Ready In</span>
+            <span>准备就绪</span>
             <span>{readyInStr}</span>
           </div>
         )}
@@ -364,38 +364,38 @@ function ArtifactDescription({
   const photoidRanges = [0, 2, 2, 2, 2, 2];
   const photoidSpeeds = [0, 5, 10, 15, 20, 25];
 
-  const genericSpaceshipDescription = <>Can move between planets without sending energy.</>;
+  const genericSpaceshipDescription = <>可以在不发送能量的情况下在行星之间移动。</>;
 
   switch (artifact.artifactType) {
     case ArtifactType.BlackDomain:
       content = (
         <Text>
-          When activated, permanently disables your planet. It'll still be yours, but you won't be
-          able to do anything with it. It turns completely black too. Just ... gone. Because this
-          one is <White>{rarityName}</White>, it works on planets up to level{' '}
-          <White>{maxLevelBlackDomain}</White>. This artifact is consumed on activation.
+          激活后，将永久禁用您的星球。它仍然是你的，但你不会了
+          可以用它做任何事。它也变成完全黑色。就……走了。因为这
+          一个是<White>{rarityName}</White>, 它适用于达到以下水平的行星{' '}
+          <White>{maxLevelBlackDomain}</White>. 此工件在激活时消耗。
         </Text>
       );
       break;
     case ArtifactType.BloomFilter:
       content = (
         <Text>
-          When activated refills your planet's energy and silver to their respective maximum values.
-          How it does this, we do not know. Because this one is <White>{rarityName}</White>, it
-          works on planets up to level <White>{maxLevelBloomFilter}</White>. This artifact is
-          consumed on activation.
+          激活后，您星球的能量和银将重新填充到各自的最大值。
+          它是如何做到这一点的，我们不知道。因为这个是<White>{rarityName}</White>, 它
+          在行星上工作到水平 <White>{maxLevelBloomFilter}</White>. 这个神器是
+          激活时消耗。
         </Text>
       );
       break;
     case ArtifactType.Wormhole:
       content = (
         <Text>
-          When activated, shortens the distance between this planet and another one. All moves
-          between those two planets decay less energy, and complete faster.{' '}
+          激活后，缩短这颗行星与另一颗行星之间的距离。所有动作
+          在这两颗行星之间衰减的能量更少，并且完成得更快.{' '}
           <Red>
-            Energy sent through your wormhole to a planet you do not control does not arrive.
+            通过你的虫洞发送到你无法控制的行星的能量不会到达。
           </Red>{' '}
-          Because this one is <White>{rarityName}</White>, it shrinks the distance by a factor of{' '}
+          因为这个是 <White>{rarityName}</White>, 它将距离缩小了一个因素{' '}
           <White>{wormholeShrinkLevels[artifact.rarity]}</White>x.
         </Text>
       );
@@ -403,28 +403,28 @@ function ArtifactDescription({
     case ArtifactType.PhotoidCannon:
       content = (
         <Text>
-          Ahh, the Photoid Canon. Activate it, wait four hours. Because this one is{' '}
-          <White>{rarityName}</White>, the next move you send will be able to go{' '}
-          <White>{photoidRanges[artifact.rarity]}</White>x further and{' '}
-          <White>{photoidSpeeds[artifact.rarity]}</White>x faster. During the 4 hour waiting period,
-          your planet's defense is temporarily decreased. This artifact is consumed once the canon
-          is fired.
+         啊，Photoid佳能。激活它，等待四个小时。因为这个是{' '}
+          <White>{rarityName}</White>, 你发出的下一步动作就能走{' '}
+          <White>{photoidRanges[artifact.rarity]}</White>x 进一步和{' '}
+          <White>{photoidSpeeds[artifact.rarity]}</White>x 快点。在4个小时的等待期间，
+          你星球的防御暂时下降。这个神器一旦设定就被消耗掉
+          被解雇了。
         </Text>
       );
       break;
     case ArtifactType.PlanetaryShield:
       content = (
         <Text>
-          Activate the planetary shield to gain a defense bonus on your planet, at the expense of
-          range and speed. When this artifact is deactivated, it is destroyed and your planet's
-          stats are reverted--so use it wisely!
+          激活行星护盾以获得行星防御加成，代价是
+          范围和速度。当这个神器被停用时，它就会被摧毁，你的星球
+          统计数据已恢复——所以请明智地使用它！
         </Text>
       );
       break;
     case ArtifactType.ShipMothership:
       content = (
         <Text>
-          Doubles energy regeneration of the planet that it is currently on.{' '}
+         使当前所在星球的能量再生加倍.{' '}
           {genericSpaceshipDescription}
         </Text>
       );
@@ -432,15 +432,15 @@ function ArtifactDescription({
     case ArtifactType.ShipCrescent:
       content = (
         <Text>
-          Activate to convert an un-owned planet whose level is more than 0 into an Asteroid Field.{' '}
-          <Red>Can only be used once.</Red> {genericSpaceshipDescription}
+          激活以将等级大于 0 的未拥有行星转换为小行星场.{' '}
+          <Red>只能使用一次.</Red> {genericSpaceshipDescription}
         </Text>
       );
       break;
     case ArtifactType.ShipGear:
       content = (
         <Text>
-          Allows you to prospect planets, and subsequently find artifacts on them.{' '}
+         允许您探索行星，并随后在其上找到人工制品.{' '}
           {genericSpaceshipDescription}
         </Text>
       );
@@ -448,14 +448,14 @@ function ArtifactDescription({
     case ArtifactType.ShipTitan:
       content = (
         <Text>
-          Pauses energy and silver regeneration on the planet it's on. {genericSpaceshipDescription}
+          暂停它所在星球上的能量和银再生. {genericSpaceshipDescription}
         </Text>
       );
       break;
     case ArtifactType.ShipWhale:
       content = (
         <Text>
-          Doubles the silver regeneration of the planet that it is currently on.{' '}
+          将当前所在星球的银再生加倍.{' '}
           {genericSpaceshipDescription}
         </Text>
       );

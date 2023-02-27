@@ -64,11 +64,11 @@ export const PlanetType = {
  * Mapping from PlanetType to pretty-printed names.
  */
 export const PlanetTypeNames = {
-  [PlanetType.PLANET]: 'Planet',
-  [PlanetType.SILVER_MINE]: 'Asteroid Field',
-  [PlanetType.RUINS]: 'Foundry',
-  [PlanetType.TRADING_POST]: 'Spacetime Rip',
-  [PlanetType.SILVER_BANK]: 'Quasar',
+  [PlanetType.PLANET]: '行星',
+  [PlanetType.SILVER_MINE]: '小行星 场地',
+  [PlanetType.RUINS]: '铸造厂',
+  [PlanetType.TRADING_POST]: '时空 撕裂',
+  [PlanetType.SILVER_BANK]: '类星体',
 } as const;
 
 /**

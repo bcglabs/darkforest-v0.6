@@ -20,7 +20,7 @@ function ThresholdByPlanetLevel({
   if (index === 0) {
     return (
       <div style={itemStyle}>
-        <span>Level 0</span>
+        <span>等级 0</span>
         <div>
           <Sub>{value}</Sub>
         </div>
@@ -29,7 +29,7 @@ function ThresholdByPlanetLevel({
   } else {
     return (
       <div style={itemStyle}>
-        <span>Level {index}</span>
+        <span>等级 {index}</span>
         <NumberInput
           format='integer'
           value={value}
@@ -80,7 +80,7 @@ export function PlanetPane({ config, onUpdate }: LobbiesPaneProps) {
       </Row>
       <Row>
         <Slider
-          label='Maximum natural planet level'
+          label='最大自然行星等级'
           variant='filled'
           min={0}
           max={9}

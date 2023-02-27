@@ -17,7 +17,7 @@ function InformationSection({ children, hide }: { children: React.ReactNode; hid
     <InfoSectionContent>
       {children}
       <BtnContainer>
-        <Btn onClick={hide}>close help</Btn>
+        <Btn onClick={hide}>关闭帮助</Btn>
       </BtnContainer>
     </InfoSectionContent>
   );
@@ -223,7 +223,7 @@ export function ModalPane({
             shortcutKey={MODAL_BACK_SHORTCUT}
             shortcutText={MODAL_BACK_SHORTCUT}
           >
-            back
+            后退
           </MaybeShortcutButton>
         )}
         <Title slot='title'>
@@ -239,19 +239,19 @@ export function ModalPane({
           {helpContent !== undefined && !minimized && (
             <>
               <Btn size='small' onClick={() => setShowingInformationSection((showing) => !showing)}>
-                help
+                帮助
               </Btn>
               <Spacer width={4} />
             </>
           )}
           <Btn size='small' onClick={() => setMinimized((minimized: boolean) => !minimized)}>
-            {minimized ? 'maximize' : 'minimize'}
+            {minimized ? '最大化' : '最小化'}
           </Btn>
           {!hideClose && (
             <>
               <Spacer width={4} />
               <Btn size='small' onClick={() => onClose()}>
-                close
+                关闭
               </Btn>
             </>
           )}

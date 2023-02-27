@@ -279,7 +279,7 @@ export function PluginLibraryPane({
         visible={visible}
         onClose={onClose}
         id={ModalName.Plugins}
-        title={'Plugin Library'}
+        title={'插件库'}
         helpContent={HelpContent}
         width={RECOMMENDED_MODAL_WIDTH}
       >

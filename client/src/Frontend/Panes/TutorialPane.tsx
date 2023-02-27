@@ -21,13 +21,13 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   if (tutorialState === TutorialState.None) {
     return (
       <div className='tutintro'>
-        Welcome to the universe of <White>DARK FOREST</White>. Would you like to play the tutorial?
+        欢迎来到宇宙 <White>黑暗森林</White>. 你想玩这个教程吗?
         <div>
           <Btn className='btn' onClick={() => tutorialManager.acceptInput(TutorialState.None)}>
-            Yes
+            是
           </Btn>
           <Btn className='btn' onClick={() => tutorialManager.complete()}>
-            No
+            否
           </Btn>
         </div>
       </div>
@@ -35,36 +35,36 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   } else if (tutorialState === TutorialState.HomePlanet) {
     return (
       <div>
-        Welcome to the universe. You've initialized with 50 energy on your home planet, in a NEBULA.
+        欢迎来到宇宙。你已经在你的母星星云中初始化了 50 能量.
         <br />
         <br />
-        <White>Click your home planet to learn more.</White>
+        <White>单击您的母星以了解更多信息.</White>
       </div>
     );
   } else if (tutorialState === TutorialState.SendFleet) {
     return (
       <div>
-        Well done! In the Selected Planet pane, you'll see more information about your planet. This
-        pane displays quick information about your planet and the ability to send resources.
+        做得好！在 Selected Planet 窗格中，您将看到有关您所在星球的更多信息。这
+        窗格显示有关您的星球的快速信息以及发送资源的能力.
         <br />
         <br />
-        <White>Try sending energy to another planet.</White> You can click and drag to look for
-        other planets.
+        <White>尝试向另一个星球发送能量。</White> 您可以单击并拖动以寻找
+        其他行星.
       </div>
     );
   } else if (tutorialState === TutorialState.SpaceJunk) {
     return (
       <div>
-        When you sent energy to a planet you accumulated some <White>Space Junk</White>. Sending
-        energy to planets that no one has moved to yet will give you junk. You are not allowed to
-        take on more junk than your maximum limit and will be unable to make moves.
+        当你向行星发送能量时，你积累了一些<White>宇宙垃圾</White>. 发送中
+        没有人移动到的行星的能量会给你带来垃圾。你不被允许
+        承担超过最大限制的垃圾，将无法采取行动.
         <br />
         <br />
-        Take a look at the top of the screen to see you current and maximum{' '}
-        <White>Space Junk</White>.
+        查看屏幕顶部以查看当前和最大{' '}
+        <White>宇宙垃圾</White>.
         <div>
           <Btn className='btn' onClick={() => tutorialManager.acceptInput(TutorialState.SpaceJunk)}>
-            Next
+            下一个
           </Btn>
         </div>
       </div>
@@ -72,35 +72,34 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   } else if (tutorialState === TutorialState.Spaceship) {
     return (
       <div>
-        You also control several space ships - check your home planet! You can move spaceships
-        between any two planets, even if you don't own the source or destination planets. Space
-        ships can move any distance!{' '}
-        <White>Try moving a spaceship you own to another planet now!</White>
+        您还可以控制几艘太空船 -检查您的母星！你可以移动宇宙飞船
+        在任何两个行星之间，即使您不拥有源行星或目标行星。空间
+        船只可以移动任何距离！{' '}
+        <White>现在尝试将您拥有的宇宙飞船移动到另一个星球!</White>
       </div>
     );
   } else if (tutorialState === TutorialState.Deselect) {
     return (
       <div>
-        Congrats, you've submitted a move to xDAI! Moves that are in the mempool are shown as dotted
-        lines. Accepted moves are shown as solid lines.
+        恭喜，您已向 xDAI 提交迁移！内存池中的移动显示为虚线
+        线。接受的移动显示为实线.
         <br />
         <br />
-        <White>Try deselecting a planet now. Click in empty space to deselect.</White>
+        <White>现在尝试取消选择行星。单击空白区域以取消选择。</White>
       </div>
     );
   } else if (tutorialState === TutorialState.ZoomOut) {
     return (
       <div className='tutzoom'>
-        Great! You'll notice that most of the universe appears grayed out. You need to explore those
-        areas before you can view them.
+        伟大的！您会注意到大部分宇宙都显示为灰色。你需要探索那些
+        区域，然后才能查看它们。
         <br />
         <br />
-        You'll notice a target <Icon type={IconType.Target} /> indicating where you are currently
-        exploring. <White>Press next when you can see it.</White> You can also zoom using the mouse
-        wheel.
+        你会注意到一个目标 <Icon type={IconType.Target} /> 指示你目前所在的位置
+        探索。 <White>看到后按下一步。</White> 也可以用鼠标缩放车轮.
         <div>
           <Btn className='btn' onClick={() => tutorialManager.acceptInput(TutorialState.ZoomOut)}>
-            Next
+            下一个
           </Btn>
         </div>
       </div>
@@ -108,47 +107,47 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   } else if (tutorialState === TutorialState.MinerMove) {
     return (
       <div>
-        You can move your explorer by using the bottom-left context menu when nothing is selected.
+        未选择任何内容时，您可以使用左下角的上下文菜单移动资源管理器.
         <br />
         <br />
         <White>
-          Try moving your explorer by clicking on the Move <Icon type={IconType.Target} /> button
+          尝试通过单击移动来移动您的资源管理器 <Icon type={IconType.Target} /> 按钮
         </White>
-        , then clicking somewhere in space.
+        , 然后点击空间中的某处.
       </div>
     );
   } else if (tutorialState === TutorialState.MinerPause) {
     return (
       <div>
-        Great! You can also pause your explorer by clicking the pause <Icon type={IconType.Pause} />{' '}
-        button.
+        伟大的！您还可以通过单击暂停 <Icon type={IconType.Pause} />{' '} 来暂停资源管理器
+        按钮.
         <br />
         <br />
-        <White>Try pausing your explorer now.</White>
+        <White>现在尝试暂停您的资源管理器.</White>
       </div>
     );
   } else if (tutorialState === TutorialState.Terminal) {
     return (
       <div>
-        You can hide the terminal on the right by clicking on its left edge.
+        您可以通过单击左侧边缘来隐藏右侧的终端。
         <br />
         <br />
-        <White>Try hiding the terminal now.</White>
+        <White>现在尝试隐藏终端.</White>
       </div>
     );
   } else if (tutorialState === TutorialState.HowToGetScore) {
     return (
       <div className='tutzoom'>
-        <White>It's a Junk War!</White> <br />
+        <White>这是一场垃圾战争!</White> <br />
         <br />
-        Have the highest score at the end of the round to win!
+        在回合结束时获得最高分即可获胜！
         <br />
         <div>
           <Btn
             className='btn'
             onClick={() => tutorialManager.acceptInput(TutorialState.HowToGetScore)}
           >
-            Next
+            下一个
           </Btn>
         </div>
       </div>
@@ -156,16 +155,16 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   } else if (tutorialState === TutorialState.ScoringDetails) {
     return (
       <div className='tutzoom'>
-        You can increase your score by withdrawing silver via space time rips, and by finding
-        artifacts. The rarer the artifact, the more points it gives you! You can also increase your
-        score via Capture Zones. Hover over the 'Capture Zone' section in the top bar for more info
-        about capture zones.
+        您可以通过时空裂缝提取银币来提高分数，并通过寻找
+        文物。神器越稀有，它给你的积分就越多！你也可以增加你的
+        通过捕获区得分。将鼠标悬停在顶部栏中的“捕获区”部分以获取更多信息
+        关于捕获区.
         <div>
           <Btn
             className='btn'
             onClick={() => tutorialManager.acceptInput(TutorialState.ScoringDetails)}
           >
-            Next
+            下一个
           </Btn>
         </div>
       </div>
@@ -173,14 +172,14 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   } else if (tutorialState === TutorialState.Valhalla) {
     return (
       <div className='tutalmost'>
-        Winners of each round of Dark Forest v0.6.x will receive a prize, and be added to the{' '}
-        <Underline>Valhalla</Underline> universe.
+        黑暗森林v0.6.x每一轮的获胜者将获得奖品，并被添加到e{' '}
+        <Underline>瓦尔哈拉</Underline> 宇宙.
         <br />
         <br />
-        To win, have the highest score (^:
+        获得最高分才能获胜 (^:
         <div>
           <Btn className='btn' onClick={() => tutorialManager.acceptInput(TutorialState.Valhalla)}>
-            Next
+            下一个
           </Btn>
         </div>
       </div>
@@ -188,13 +187,13 @@ function TutorialPaneContent({ tutorialState }: { tutorialState: TutorialState }
   } else if (tutorialState === TutorialState.AlmostCompleted) {
     return (
       <div className='tutalmost'>
-        This is the end of the tutorial. Go out and explore the universe! More information will pop
-        up in the <White>upper-right</White> as you discover more about the game.
+        本教程到此结束。出去探索宇宙吧！更多信息将会弹出
+        在 <White>右上方</White> 当你发现更多关于游戏的信息时.
         <br />
-        We hope you enjoy Dark Forest!
+        我们希望您喜欢黑暗森林！
         <div>
           <Btn className='btn' onClick={() => tutorialManager.complete()}>
-            Finish
+            结束
           </Btn>
         </div>
       </div>

@@ -170,7 +170,7 @@ export function PlanetDexPane({ visible, onClose }: { visible: boolean; onClose:
     };
   }, [visible, uiManager]);
 
-  const headers = ['', 'Planet Name', 'Level', 'Energy', 'Silver', 'Inventory'];
+  const headers = ['', '行星名称','等级','能量','白银','库存'];
   const alignments: Array<'r' | 'c' | 'l'> = ['r', 'l', 'r', 'r', 'r', 'r'];
 
   const columns = [
@@ -235,7 +235,7 @@ export function PlanetDexPane({ visible, onClose }: { visible: boolean; onClose:
       visible={visible}
       onClose={onClose}
       id={ModalName.PlanetDex}
-      title='Planet Dex'
+      title='行星敏捷'
       helpContent={HelpContent}
     >
       {content}

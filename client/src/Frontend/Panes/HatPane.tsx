@@ -58,14 +58,14 @@ export function HatPane({
     return (
       <StyledHatPane>
         <div>
-          <Sub>HAT</Sub>
+          <Sub>有</Sub>
           <span>{getPlanetCosmetic(planet).hatType}</span>
         </div>
         <div>
           <Sub>HAT Level</Sub>
           <span>{getHatSizeName(planet)}</span>
         </div>
-        <div className='margin-top'>
+        <div className='利润-顶部'>
           <Sub>Next Level Cost</Sub>
           <span>
             {getHatCostEth(planet)} USD <Sub>/</Sub> {getHatCostEth(planet)} DAI
@@ -87,7 +87,7 @@ export function HatPane({
           }}
           disabled={!enabled(planet)}
         >
-          {planet && planet.hatLevel > 0 ? 'Upgrade' : 'Buy'} HAT
+          {planet && planet.hatLevel > 0 ? '升级' : '买'} HAT
         </Btn>
       </StyledHatPane>
     );

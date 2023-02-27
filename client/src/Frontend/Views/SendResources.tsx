@@ -97,7 +97,7 @@ function ResourceBar({
         <ResourceRowDetails>
           <Icon type={isSilver ? IconType.Silver : IconType.Energy} />
           {getResource(value)}
-          <Subber>{isSilver ? 'silver' : 'energy'}</Subber>
+          <Subber>{isSilver ? '银' : '活力'}</Subber>
         </ResourceRowDetails>
         <ShowPercent value={value} setValue={setValue} />
       </Row>
@@ -164,19 +164,19 @@ function SendRow({
   abandoning?: boolean;
   disabled?: boolean;
 }) {
-  let content = 'Send';
+  let content = '发送';
   if (artifact) {
     const artifactName = artifactNameFromArtifact(artifact);
     if (isSpaceShip(artifact.artifactType)) {
       // Call it "Move" with a spaceship, instead of "Send"
-      content = `Move ${artifactName}`;
+      content = `移动 ${artifactName}`;
     } else {
       // Only add the "+" if we are sending Energy & Artifact
       content += ` + ${artifactName}`;
     }
   }
   if (abandoning) {
-    content += ' and Abandon';
+    content += ' 并放弃';
   }
   /* Explicitly avoid binding to `onShortcutPressed` so we can support sending on subpanes */
   return (
@@ -296,7 +296,7 @@ export function SendResources({
   if (p.value && p.value.transactions?.hasTransaction(isUnconfirmedReleaseTx)) {
     abandonRow = (
       <Btn size='stretch' disabled>
-        <LoadingSpinner initialText='Abandoning...' />
+        <LoadingSpinner initialText='放弃...' />
       </Btn>
     );
   } else if (p.value && !p.value.destroyed) {
@@ -314,7 +314,7 @@ export function SendResources({
   if (p.value && p.value.transactions?.hasTransaction(isUnconfirmedMoveTx)) {
     sendRow = (
       <Btn size='stretch' disabled>
-        <LoadingSpinner initialText={isSendingShip ? 'Moving...' : 'Sending...'} />
+        <LoadingSpinner initialText={isSendingShip ? '移动...' : '发送中...'} />
       </Btn>
     );
   } else {
