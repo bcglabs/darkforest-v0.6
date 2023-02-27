@@ -52,15 +52,15 @@ export const Biome = {
  * Mapping from Biome to pretty-printed names.
  */
 export const BiomeNames = {
-  [Biome.UNKNOWN]: 'Unknown',
-  [Biome.OCEAN]: 'Ocean',
-  [Biome.FOREST]: 'Forest',
-  [Biome.GRASSLAND]: 'Grassland',
-  [Biome.TUNDRA]: 'Tundra',
-  [Biome.SWAMP]: 'Swamp',
-  [Biome.DESERT]: 'Desert',
-  [Biome.ICE]: 'Ice',
-  [Biome.WASTELAND]: 'Wasteland',
-  [Biome.LAVA]: 'Lava',
-  [Biome.CORRUPTED]: 'Corrupted',
+  [Biome.UNKNOWN]: '未知',
+  [Biome.OCEAN]: '海洋',
+  [Biome.FOREST]: '森林',
+  [Biome.GRASSLAND]: '草原',
+  [Biome.TUNDRA]: '苔原',
+  [Biome.SWAMP]: '沼泽',
+  [Biome.DESERT]: '沙漠',
+  [Biome.ICE]: '冰',
+  [Biome.WASTELAND]: '荒地',
+  [Biome.LAVA]: '足够的',
+  [Biome.CORRUPTED]: '腐化',
 } as const;
