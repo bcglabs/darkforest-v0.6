@@ -104,8 +104,8 @@ export function SelectedPlanetHelpContent() {
   return (
     <div>
       <p>
-        This pane allows you to interact with the currently selected planet. Pressing the ESCAPE key
-        allows you to deselect the current planet.
+        此窗格允许您与当前选定的行星进行交互。按退出键
+        允许您取消选择当前星球.
       </p>
     </div>
   );

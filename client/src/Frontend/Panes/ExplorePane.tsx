@@ -185,7 +185,7 @@ export function ExplorePane() {
           onClick={doExplore}
           onShortcutPressed={doExplore}
           shortcutKey={TOGGLE_EXPLORE}
-          shortcutText={'空间'}
+          shortcutText={'空格'}
         >
           {mining ? '暂停' : '探索!'} <EmSpacer width={1} />{' '}
           {mining ? <Icon type={IconType.Pause} /> : <Icon type={IconType.Play} />}

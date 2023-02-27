@@ -17,7 +17,7 @@ function InformationSection({ children, hide }: { children: React.ReactNode; hid
     <InfoSectionContent>
       {children}
       <BtnContainer>
-        <Btn onClick={hide}>close help</Btn>
+        <Btn onClick={hide}>关闭帮助</Btn>
       </BtnContainer>
     </InfoSectionContent>
   );
