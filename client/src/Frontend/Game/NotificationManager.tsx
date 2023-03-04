@@ -240,9 +240,9 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.WelcomePlayer,
       <span>
-        Welcome to the world to Dark Forest! These are your notifications.
+        欢迎来到黑暗森林世界！这些是您的通知。
         <br />
-        Click a notification to dismiss it.
+        单击通知以将其关闭。
       </span>
     );
   }
@@ -251,8 +251,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundSpace,
       <span>
-        Congrats! You found space! Space has more valuable resources than <br />
-        the nebula where your home planet is located.{' '}
+        恭喜！你找到了空间！太空拥有比其他地方更宝贵的资源 <br />
+        你的母星所在的星云.{' '}
         <CenterChunkLink chunk={chunk}>Click to view</CenterChunkLink>.
       </span>
     );
@@ -262,9 +262,9 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundDeepSpace,
       <span>
-        Congrats! You found deep space! Deep space has more rare <br />
-        planets, but all planets in deep space have lowered defense!{' '}
-        <CenterChunkLink chunk={chunk}>Click to view</CenterChunkLink>.
+        恭喜！你发现了深空！深空有更多稀有 <br />
+        行星，但是深空的所有行星都降低了防御！{' '}
+        <CenterChunkLink chunk={chunk}>点击查看</CenterChunkLink>.
       </span>
     );
   }
@@ -273,8 +273,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundDeadSpace,
       <span>
-        Congrats! You found dead space! Dead space is the most valuable <br />
-        and most dangerous part of the universe, where corrupted planets lie...{' '}
+        恭喜！你发现了死亡空间！死亡空间是最有价值的 <br />
+        以及宇宙中最危险的部分，腐败的行星所在的地方......{' '}
         <CenterChunkLink chunk={chunk}>Click to view</CenterChunkLink>.
       </span>
     );
@@ -284,8 +284,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundSilver,
       <span>
-        You found a silver mine! Silver can be used to upgrade planets. <br />
-        Click to view <PlanetNameLink planet={planet} />.
+        你发现了一个银矿！银可用于升级行星。 <br />
+        点击查看 <PlanetNameLink planet={planet} />.
       </span>
     );
   }
@@ -294,8 +294,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundSilverBank,
       <span>
-        You found a quasar! Quasars are weak, but can hold a lot of silver. <br />
-        Click to view <PlanetNameLink planet={planet} />.
+        你发现了一个类星体！类星体很弱，但可以容纳大量的银子。 <br />
+        点击查看 <PlanetNameLink planet={planet} />.
       </span>
     );
   }
@@ -304,8 +304,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundTradingPost,
       <span>
-        You found a spacetime rip! Now you can move artifacts in and out of the universe. Click to
-        view <PlanetNameLink planet={planet} />.
+        你发现了一个时空裂缝！现在您可以将工件移入和移出 Universe。点击
+        看法 <PlanetNameLink planet={planet} />.
       </span>
     );
   }
@@ -314,9 +314,9 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundPirates,
       <span>
-        You found space pirates! Unconquered planets must be defeated first.
+        你找到了太空海盗！必须先打败未被征服的行星.
         <br />
-        Click to view <PlanetNameLink planet={planet} />.
+        点击查看 <PlanetNameLink planet={planet} />.
       </span>
     );
   }
@@ -325,8 +325,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundComet,
       <span>
-        You found a comet! Planets with comets have a stat doubled! <br />
-        Click to view <PlanetNameLink planet={planet} />
+        你发现了一颗彗星！有彗星的行星有双倍的统计数据！ <br />
+        点击查看 <PlanetNameLink planet={planet} />
       </span>
     );
   }
@@ -335,8 +335,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       getNotificationTypeFromPlanetBiome(planet.biome),
       <span>
-        You have discovered the {biomeName(planet.biome)} biome! <br />
-        Click to view <PlanetNameLink planet={planet} />
+        你发现了 {biomeName(planet.biome)} 生物群系! <br />
+        点击查看 <PlanetNameLink planet={planet} />
       </span>
     );
   }
@@ -345,9 +345,9 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.FoundFoundry,
       <span>
-        You have found a planet that can produce an artifact! Artifacts can be used to power up your
-        planets and moves! <br />
-        Click to view <PlanetNameLink planet={planet} />
+        你找到了一个可以生产神器的星球！神器可以用来增强你的能力
+        行星和动作！ <br />
+        点击查看 <PlanetNameLink planet={planet} />
       </span>
     );
   }
@@ -355,8 +355,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.ArtifactProspected,
       <span>
-        You prospected a Foundry! <br />
-        What artifacts are waiting to be found on it? Click to view{' '}
+        你找了一家铸造厂！ <br />
+        上面有什么文物等待被发现？点击查看{' '}
         <PlanetNameLink planet={planet} />
       </span>
     );
@@ -366,11 +366,11 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.ArtifactFound,
       <span>
-        You have found <ArtifactNameLink id={artifact.id} />, a{' '}
+        你找到了 <ArtifactNameLink id={artifact.id} />, a{' '}
         <ArtifactRarityLabelAnim rarity={artifact.rarity} />{' '}
         <ArtifactBiomeText artifact={artifact} /> <ArtifactTypeText artifact={artifact} />
         {'!'.repeat(artifact.rarity)} <br />
-        Click to view <PlanetNameLink planet={planet} />
+        点击查看 <PlanetNameLink planet={planet} />
       </span>
     );
   }
@@ -378,7 +378,7 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.PlanetWon,
       <span>
-        You conquered <PlanetNameLink planet={planet}></PlanetNameLink>, you're unstoppable!
+        你征服了 <PlanetNameLink planet={planet}></PlanetNameLink>, 你势不可挡！
       </span>
     );
   }
@@ -386,7 +386,7 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.PlanetLost,
       <span>
-        You lost <PlanetNameLink planet={planet}></PlanetNameLink>, oh no!
+        你输了 <PlanetNameLink planet={planet}></PlanetNameLink>, 不好了！
       </span>
     );
   }
@@ -394,7 +394,7 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.PlanetAttacked,
       <span>
-        Your Planet <PlanetNameLink planet={planet}></PlanetNameLink> has been attacked!
+        你的星球 <PlanetNameLink planet={planet}></PlanetNameLink> 被攻击了！
       </span>
     );
   }
@@ -403,7 +403,7 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.CanUpgrade,
       <span>
-        Your planet <PlanetNameLink planet={planet} /> can upgrade! <br />
+        你的星球 <PlanetNameLink planet={planet} /> 可以升级！ <br />
       </span>
     );
   }
@@ -412,9 +412,9 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.BalanceEmpty,
       <span>
-        Your xDAI account is out of balance!
+        你的 xDAI 账户余额不足!
         <br />
-        Click <FAQ04Link>here</FAQ04Link> to learn how to get more.
+        点击 <FAQ04Link>here</FAQ04Link> 学习如何获得更多.
       </span>
     );
   }
@@ -423,8 +423,8 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.ReceivedPlanet,
       <span>
-        Someone just sent you their planet: <PlanetNameLink planet={planet} />.{' '}
-        {!isLocatable(planet) && "You'll need to ask the person who sent it for its location."}
+        有人刚给你发了他们的星球: <PlanetNameLink planet={planet} />.{' '}
+        {!isLocatable(planet) && "您需要向发送它的人询问它的位置。"}
       </span>
     );
   }
@@ -433,7 +433,7 @@ class NotificationManager extends EventEmitter {
     this.notify(
       NotificationType.TxInitError,
       <span>
-        {startCase(methodName)} failed. Reason: {failureReason}
+        {startCase(methodName)} 失败的. 原因: {failureReason}
       </span>
     );
   }

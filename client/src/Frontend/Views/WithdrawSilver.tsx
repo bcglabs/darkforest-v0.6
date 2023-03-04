@@ -115,7 +115,7 @@ export function WithdrawSilver({ wrapper }: { wrapper: Wrapper<Planet | undefine
   } else {
     return (
       <CenterBackgroundSubtext width='100%' height='75px'>
-        Select a Spacetime Rip
+       选择时空裂缝
       </CenterBackgroundSubtext>
     );
   }

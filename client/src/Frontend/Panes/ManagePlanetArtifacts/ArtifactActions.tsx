@@ -109,7 +109,7 @@ export function ArtifactActions({
       extraContent: !canHandleDeposit && (
         <>
           . <ArtifactRarityLabelAnim rarity={artifact.rarity} />
-          {` artifacts can only be deposited on level ${artifact.rarity + 1}+ spacetime rips`}
+          {` 文物只能存放在水平 ${artifact.rarity + 1}+ 时空撕裂`}
         </>
       ),
       children: (
@@ -120,7 +120,7 @@ export function ArtifactActions({
             canHandleDeposit && deposit(artifact);
           }}
         >
-          {depositing ? <LoadingSpinner initialText={'Depositing...'} /> : 'Deposit'}
+          {depositing ? <LoadingSpinner initialText={'存款...'} /> : '订金'}
         </Btn>
       ),
     });
@@ -136,7 +136,7 @@ export function ArtifactActions({
             deactivate(artifact);
           }}
         >
-          {deactivating ? <LoadingSpinner initialText={'Deactivating...'} /> : 'Deactivate'}
+          {deactivating ? <LoadingSpinner initialText={'停用...'} /> : '停用'}
         </Btn>
       ),
     });
@@ -147,7 +147,7 @@ export function ArtifactActions({
       extraContent: !canHandleWithdraw && (
         <>
           . <ArtifactRarityLabelAnim rarity={artifact.rarity} />
-          {` artifacts can only be withdrawn from level ${artifact.rarity + 1}+ spacetime rips`}
+          {` 工件只能从关卡中取出 ${artifact.rarity + 1}+ 时空撕裂`}
         </>
       ),
       children: (
@@ -158,7 +158,7 @@ export function ArtifactActions({
             canHandleWithdraw && withdraw(artifact);
           }}
         >
-          {withdrawing ? <LoadingSpinner initialText={'Withdrawing...'} /> : 'Withdraw'}
+          {withdrawing ? <LoadingSpinner initialText={'提现...'} /> : '提取'}
         </Btn>
       ),
     });
@@ -175,7 +175,7 @@ export function ArtifactActions({
             activate(artifact);
           }}
         >
-          {activating ? <LoadingSpinner initialText={'Activating...'} /> : 'Activate'}
+          {activating ? <LoadingSpinner initialText={'激活...'} /> : '启用'}
         </Btn>
       ),
     });

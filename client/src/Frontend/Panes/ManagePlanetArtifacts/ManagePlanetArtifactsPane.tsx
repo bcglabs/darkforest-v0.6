@@ -19,15 +19,15 @@ export function ManagePlanetArtifactsHelpContent() {
   return (
     <div>
       <p>
-        Using this pane, you can manage the artifacts that are on this planet specifically. You can
-        activate a single artifact at a time. Some artifacts have a cooldown period after
-        deactivating during which they can not be activated.
+        使用此窗格，您可以专门管理这个星球上的工件。你可以
+        一次激活一个神器。一些神器在之后有冷却时间
+        停用期间他们不能被激活。
       </p>
       <br />
       <p>
-        If your planet is a <Underline>Spacetime Rip</Underline>, you can also withdraw and deposit
-        artifacts. When you withdraw an artifact, it is transferred to your address as an ERC 721
-        token.
+        如果你的星球是 <Underline>时空撕裂</Underline>, 您也可以取款和存款
+        文物。当您提取工件时，它会作为 ERC 721 转移到您的地址
+        令牌。
       </p>
     </div>
   );
@@ -72,7 +72,7 @@ export function ManagePlanetArtifactsPane({
   } else {
     return (
       <CenterBackgroundSubtext width='100%' height='75px'>
-        Select a Planet
+        选择一个星球
       </CenterBackgroundSubtext>
     );
   }

@@ -69,7 +69,7 @@ export function HelpPane({ visible, onClose }: { visible: boolean; onClose: () =
           <White>2022 年 2 月 28 日</White> 太平洋时间晚上 9 点。当时63强 得分最高的玩家将从 63
           个奖品星球中获得奖品。你可以看到 通过在游戏的登录页面上向下滚动来查看当前排名。
           <EmSpacer height={1} />
-          这一轮的得分由三部分组成：使用你的装备船寻找神器， 从 Spacetime Rips
+          这一轮的得分由三部分组成：使用你的装备船寻找神器， 从时空撕裂
           中提取白银，并入侵并捕获其中的行星 捕获区。有关捕获区的更多信息，请将鼠标悬停在“捕获区”上
           屏幕顶部的部分。
           <EmSpacer height={1} />
