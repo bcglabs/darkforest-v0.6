@@ -94,12 +94,14 @@ const config: HardhatUserConfig = {
     ...(DEPLOYER_MNEMONIC ? { xdai } : undefined),
     ...(DEPLOYER_MNEMONIC ? { mainnet } : undefined),
     localhost: {
-      url: 'http://localhost:8545/',
-      accounts: {
-        // Same mnemonic used in the .env.example
-        mnemonic: 'change typical hire slam amateur loan grid fix drama electric seed label',
-      },
-      chainId: 31337,
+      url: 'http://127.0.0.1:8545/',
+      accounts: ['fb781c431f8ca853d0c2a046a7d008fe4d1157791cde886c2eeff7074d28986f'],
+      chainId: 1337,
+    },
+    goerli: {
+      url: `https://eth-goerli.alchemyapi.io/v2/FBUImvWzOoSHEOqK0dZCx-i9dCdx52JY`,
+      accounts: ['46b9f214bbb6c241fa785e81af95df2c353d644ec87e8ba7218e0f04bfe8fbd7'],
+      chainId: 5,
     },
     // Used when you dont specify a network on command line, like in tests
     hardhat: {
